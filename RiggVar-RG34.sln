@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31424.327
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfAppRG34", "WpfAppRG34\WpfAppRG34.csproj", "{1C190AC0-57F2-42F6-A027-B85D76EC6490}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SharedProject", "SharedProject\SharedProject.shproj", "{37403E5C-11CD-4377-A5EA-2E741D086376}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1A8C9589-CA13-49A4-A4F4-1E8E744945C8}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		SharedProject\SharedProject.projitems*{1c190ac0-57f2-42f6-a027-b85d76ec6490}*SharedItemsImports = 5
+		SharedProject\SharedProject.projitems*{37403e5c-11cd-4377-a5ea-2e741d086376}*SharedItemsImports = 13
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1C190AC0-57F2-42F6-A027-B85D76EC6490}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C190AC0-57F2-42F6-A027-B85D76EC6490}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C190AC0-57F2-42F6-A027-B85D76EC6490}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C190AC0-57F2-42F6-A027-B85D76EC6490}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7B399750-2EA1-4170-8916-A27D630EA640}
+	EndGlobalSection
+EndGlobal

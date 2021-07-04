@@ -1,0 +1,74 @@
+﻿<Window x:Class="WpfAppRG34.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfAppRG34"
+        xmlns:rgg="clr-namespace:RiggVar.Rgg"
+        d:DataContext="{d:DesignInstance Type=local:MainViewModel}"
+        d:DesignHeight="600" d:DesignWidth="800" mc:Ignorable="d"
+        MinHeight="600" MinWidth="800"
+        Title="Wpf App RG34"
+        Height="800"
+        Width="1200">
+    <Grid>
+        <Rectangle Fill="#FF333333"></Rectangle>
+
+        <Grid Margin="70" x:Name="HelixHost"></Grid>
+
+        <Grid Name="Graph3DGrid" Background="#00000000" IsHitTestVisible="False">
+            <Grid>
+                <Grid.Resources>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="FontSize" Value="16" />
+                        <Setter Property="IsHitTestVisible" Value="false" />
+                    </Style>
+                </Grid.Resources>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="140"></RowDefinition>
+                    <RowDefinition Height="20"></RowDefinition>
+                    <RowDefinition Height="150"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="20"></RowDefinition>
+                    <RowDefinition Height="70"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="70"></ColumnDefinition>
+                    <ColumnDefinition Width="20"></ColumnDefinition>
+                    <ColumnDefinition Width="80"></ColumnDefinition>
+                    <ColumnDefinition Width="20"></ColumnDefinition>
+                    <ColumnDefinition Width="80"></ColumnDefinition>
+                    <ColumnDefinition Width="20"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="360"></ColumnDefinition>
+                    <ColumnDefinition Width="20"></ColumnDefinition>
+                    <ColumnDefinition Width="70"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="2" Grid.Column="2" x:Name="TrimmText" Text="TrimmText" Foreground="AntiqueWhite" TextAlignment="Left" Grid.ColumnSpan="3"></TextBlock>
+                <TextBlock Grid.Row="3" Grid.Column="2" x:Name="StatusColumn1" Text="VO" Foreground="AntiqueWhite" TextAlignment="Left"></TextBlock>
+                <TextBlock Grid.Row="3" Grid.Column="3" x:Name="StatusColumn2" Text=":" Foreground="AntiqueWhite" TextAlignment="Center"></TextBlock>
+                <TextBlock Grid.Row="3" Grid.Column="4" x:Name="StatusColumn3" Text="1000" Foreground="AntiqueWhite" TextAlignment="Right"></TextBlock>
+                <TextBlock Grid.Row="2" Grid.Column="7" x:Name="MemoText" Grid.RowSpan="2"
+                           FontSize="14"
+                           FontStyle="Italic"
+                           Foreground="DarkGray"
+                           Text="MemoText" 
+                           TextAlignment="Left" 
+                           TextWrapping="NoWrap">
+                </TextBlock>
+            </Grid>
+        </Grid>
+
+        <rgg:ButtonFrame x:Name="BtnFrame"></rgg:ButtonFrame>
+
+        <Canvas IsHitTestVisible="False">
+        <TextBlock x:Name="ClickText" Margin="150, 80" FontSize="18"
+                   Foreground="AntiqueWhite">Click</TextBlock>
+        <TextBlock x:Name="TouchText" Margin="300, 80" FontSize="18"
+                   Foreground="Aquamarine">Touch</TextBlock>
+            <TextBlock x:Name="HintText" Margin="450, 80" FontSize="18"
+                   Foreground="Yellow" >Hint</TextBlock>
+        </Canvas>
+
+    </Grid>
+</Window>

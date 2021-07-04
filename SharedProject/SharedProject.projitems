@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>37403e5c-11cd-4377-a5ea-2e741d086376</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>SharedProject</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Classes\Bezier.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Classes\Calc.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Classes\EnumSet.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Classes\Fachwerk.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Classes\Matrix.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Classes\PolarKar.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Classes\RotaData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Classes\SchnittKK.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Classes\Scroll.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Classes\SplitF.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Classes\TetraF.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Classes\TrimmTab.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\rgg-data-00.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\rgg-data-01.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\rgg-data-02.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\rgg-data-03.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\TRggData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\TRggTrimmDB.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FB\RiggVar.FB.ActionConst.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FB\RiggVar.FB.ActionGroup.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FB\RiggVar.FB.ActionGroups.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FB\RiggVar.FB.ActionList.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FB\RiggVar.FB.ActionListDef.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FB\RIggVar.FB.ActionLong.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FB\RiggVar.FB.ActionName.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FB\RiggVar.FB.ActionShort.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interface\IRigg.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\rgg-model-01.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\rgg-model-02.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\rgg-model-03.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\rgg-model-04.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\rgg-model-05.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\rgg-model-06.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\rgg-model-07.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Util\TStringList.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Util\TStrings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Util\Utils.cs" />
+  </ItemGroup>
+</Project>
