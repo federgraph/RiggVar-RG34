@@ -47,11 +47,11 @@ namespace RiggVar.Rgg
             switch (SalingTyp)
             {
                 case TSalingTyp.stOhneStarr:
-                    UpdateGetriebeOS();
+                    UpdateGetriebeOSStarr();
                     break;
 
                 case TSalingTyp.stOhneBiegt:
-                    UpdateGetriebeOS_2();
+                    UpdateGetriebeOSBiegt();
                     break;
 
                 case TSalingTyp.stDrehbar:
@@ -67,7 +67,6 @@ namespace RiggVar.Rgg
                     {
                         BerechneWinkel();
                     }
-
                     break;
             }
         }
@@ -118,8 +117,7 @@ namespace RiggVar.Rgg
 
         private double WobenIstVonPsi(double psi, WobenIstVonPsiData nd)
         {
-
-            // Berechnungen im Vierelenk D0 D C C0
+            // Berechnung im Viergelenk D0 D C C0
             rP.D = SKK.AnglePointXZ(rP.D0, FrMastUnten, psi - FrAlpha);
             rP.C = SKK.IntersectionXZ1(rP.D, rP.C0, FrMastOben, FrVorstag);
 
@@ -139,21 +137,18 @@ namespace RiggVar.Rgg
         {
             int Counter;
 
-            // gegeben: Woben3d, Wunten3d, Mastunten, Mastoben, SalingL,
-            // Vorstag, Rumpfkoordinaten.
+            // gegeben: Woben3d, Wunten3d, Mastunten, Mastoben, SalingL, Vorstag und Rumpfkoordinaten.
             // gesucht: Riggkoordinaten ooA, ooB, ooC, ooD, ooP, ooF
             double psiStart, psiEnde, psiEnde2, psiA, psiB;
             double WobenMin, WobenMax, WobenIst, Diff;
             double Saling1L, W1Strich;
-            //double WStrich, Basis, Skalar;
             TRealPoint Temp;
-            //TRealPoint TempA, TempC, TempD;
-            //TRealPoint [] oooTemp = new TRealPoint [Rigg.TRiggPoints];
             WobenIstVonPsiData nd = new WobenIstVonPsiData();
 
             ResetStatus();
 
             // Vorstag gegeben, Winkel numerisch ermitteln!
+
             // Startwinkel
             SKK.SchnittEbene = TSchnittEbene.seXZ;
             SKK.Radius1 = FrMastUnten;
@@ -205,8 +200,7 @@ namespace RiggVar.Rgg
                 psiB = psiEnde;
             }
 
-            // FrPsi ermitteln
-            // Mast gerade zeichnen, wenn Wante zu lang oder zu kurz ist
+            // FrPsi ermitteln, Mast gerade zeichnen, wenn Wante zu lang oder zu kurz ist
             if (FGetriebeStatus.IsMember(Rigg.gsWanteZulang))
             {
                 FrPsi = psiEnde;
@@ -216,9 +210,9 @@ namespace RiggVar.Rgg
                 _ = WobenIstVonPsi(psiEnde, nd);
                 FrPsi = psiEnde;
             }
-            //if GetriebeOK then : den richtigen Winkel FrPsi numerisch ermitteln
             else
             {
+                // if GetriebeOK then : Den richtigen Winkel FrPsi numerisch ermitteln
                 Counter = 0;
                 do
                 {
@@ -241,7 +235,7 @@ namespace RiggVar.Rgg
 
             // weiter im ebenen Trapez
             RggCalc.SchnittGG(Vcalc.Null, nd.TempC, nd.TempD, nd.TempA, ref Temp);
-            //Temp enthält jetzt den Schnittpunkt der Diagonalen
+            // Temp enthält jetzt den Schnittpunkt der Diagonalen
             W1Strich = Temp.Length();
             Saling1L = nd.TempD.Distance(Temp);
 
@@ -270,13 +264,14 @@ namespace RiggVar.Rgg
             FrWinkel = FrPhi - FrAlpha;
             Rest();
         }
-        public void UpdateGetriebeOS()
+        public void UpdateGetriebeOSStarr()
         {
             // FrVorstag und FrWoben2d gegeben
             TRealPoint Temp;
             double Skalar;
 
             ResetStatus();
+
             // Berechnung Punkt C
             SKK.SchnittEbene = TSchnittEbene.seXZ;
             SKK.Radius1 = FrMastUnten + FrMastOben;
@@ -300,7 +295,7 @@ namespace RiggVar.Rgg
             Temp = rP.C - rP.D0;
             Skalar = FrMastUnten / (FrMastUnten + FrMastOben);
             Temp.X = Skalar * Temp.X;
-            //Temp.y = 0;
+            //Temp.Y = 0; // immer 0
             Temp.Z = Skalar * Temp.Z;
             rP.D = rP.D0 + Temp;
             // aktualisieren
@@ -315,18 +310,21 @@ namespace RiggVar.Rgg
             Wanten2dTo3d();
             Rest();
         }
-        public void UpdateGetriebeOS_2()
+        public void UpdateGetriebeOSBiegt()
         {
+            // Wantenlängen3d bleiben unverändert
             // FrVorstag und FrWoben3d und FrWunten3d gegeben
             double TempW, Skalar, TempWunten2d, TempWoben2d;
             TRealPoint Temp;
 
             ResetStatus();
+
             // Wanten3dto2d
             TempW = Math.Sqrt(RggCalc.Sqr(FrWunten3D + FrWoben3D) - RggCalc.Sqr(FrPuettingA / 2));
             Skalar = FrWunten3D / (FrWoben3D + FrWunten3D);
             TempWunten2d = TempW * Skalar;
             TempWoben2d = TempW * (1 - Skalar);
+
             // Berechnung Punkt C
             SKK.SchnittEbene = TSchnittEbene.seXZ;
             SKK.Radius1 = TempWunten2d + TempWoben2d;
@@ -349,23 +347,16 @@ namespace RiggVar.Rgg
                 Temp = rP.C - rP.D0;
                 Skalar = FrMastUnten / (FrMastUnten + FrMastOben);
                 Temp.X = Skalar * Temp.X;
-                //Temp.y = 0;
+                //Temp.Y = 0;
                 Temp.Z = Skalar * Temp.Z;
                 rP.D = rP.D0 + Temp;
-                // Wantenlängen
-                /*
-                FrWoben2d := TempWoben2d;
-                FrWunten2d := rP.P0.Distance(rP.C) - FrWoben2d;
-                */
                 FrWanteZulang = FrWunten3D + FrWoben3D - rP.C.Distance(rP.A0);
                 FGetriebeOK = false;
                 FGetriebeStatus.Include(Rigg.gsWanteZulang);
             }
-
-            // wenn die Wanten straff sind:
             else
             {
-                // Punkt C oben schon berechnet
+                // wenn die Wanten straff sind:
                 // Punkt D
                 SKK.SchnittEbene = TSchnittEbene.seXZ;
                 SKK.Radius1 = FrMastOben;
@@ -373,11 +364,6 @@ namespace RiggVar.Rgg
                 SKK.MittelPunkt1 = rP.C;
                 SKK.MittelPunkt2 = rP.D0;
                 rP.D = SKK.SchnittPunkt1;
-                //Wantenlängen
-                /*
-                FrWunten2d := TempWunten2d;
-                FrWoben2d := TempWoben2d;
-                */
             }
 
             // Punkt P
@@ -399,7 +385,7 @@ namespace RiggVar.Rgg
             FrWinkel = FrPhi - FrAlpha;
             FrPsi = Math.Atan((rP.D0.X - rP.D.X) / (rP.D.Z - rP.D0.Z));
             FrPsi = FrPsi + (Math.PI / 2) + FrAlpha;
-            //Wanten2dTo3d; Wantenlängen3d bleiben unverändert
+
             Rest();
         }
         public void Rest()
@@ -529,7 +515,7 @@ namespace RiggVar.Rgg
             }
             FrWinkel = FrPhi - FrAlpha;
             FrSalingL = Math.Sqrt(RggCalc.Sqr(FrSalingH) + RggCalc.Sqr(FrSalingA / 2));
-            Rest(); // think: refactored away with 'extract method refactoring'
+            Rest();
         }
         public TRealPoint[] Koppelkurve()
         {
@@ -541,7 +527,7 @@ namespace RiggVar.Rgg
             double phiA, phiE, phiM, psiM, WinkelStep;
             TRealPoint ooTemp;
             TRiggPoints oooTemp = new TRiggPoints();
-            TRealPoint[] result = new TRealPoint[101];
+            TRealPoint[] result = new TRealPoint[Rigg.TLineDataR100];
 
             rP.CopyTo(oooTemp); // aktuelle Koordinaten sichern
             Wanten3dTo2d();
@@ -638,7 +624,7 @@ namespace RiggVar.Rgg
         }
         public void BiegeUndNeigeFS(TTrimm TrimmSoll, ref double SalingHStart)
         {
-            // var Parameter SalingHStart wird vom Regler benötigt
+            // ref Parameter SalingHStart wird vom Regler benötigt
             TRealPoint ooTemp;
 
             BiegeUndNeigeF1(TrimmSoll.Mastfall, TrimmSoll.BiegungS);
@@ -826,8 +812,7 @@ namespace RiggVar.Rgg
 
             WStrich = rP.A0.Distance(rP.C);
             Basis = rP.A0.Distance(rP.D);
-            // weiter mit Koordinatentransformation,
-            // ebenes Trapez A0, A, C, D
+            // weiter mit Koordinatentransformation, ebenes Trapez A0, A, C, D
             // Berechnung TempD
             TempD = Vcalc.Null;
             TempD.X = Basis;
@@ -853,7 +838,7 @@ namespace RiggVar.Rgg
             W1Strich = Temp.Length();
             Saling1L = TempD.Distance(Temp);
 
-            // weiter r äumlich:
+            // weiter räumlich:
             Skalar = W1Strich / WStrich;
             Temp = rP.C - rP.A0;
             Temp *= Skalar;
@@ -866,7 +851,7 @@ namespace RiggVar.Rgg
             Temp *= Skalar;
             rP.A = rP.D + Temp;
 
-            // FrWunten3d ermitteln und aktualisieren
+            // FrWunten3D ermitteln und aktualisieren
             FrWunten3D = TempA.Length();
             rP.P = rP.A;
             rP.P.Y = 0;
@@ -906,14 +891,13 @@ namespace RiggVar.Rgg
                 switch (SalingTyp)
                 {
                     case TSalingTyp.stFest:
-                        // 1. Aufruf SchnittKK: Saling2d und WanteOben2d;
+                        // 1. Aufruf SchnittKK: Saling2D und WanteOben2D;
                         // Schnittpunkt Temp wird im 2. Aufruf benötigt
                         SKK.Radius1 = FrSalingH;
                         SKK.Radius2 = FrWoben2D;
                         Temp = SKK.Null;
                         Temp.X = FrMastUnten;
                         SKK.MittelPunkt1 = Temp;
-                        //Temp = Null;
                         Temp.X = FrMastUnten + FrMastOben;
                         SKK.MittelPunkt2 = Temp;
                         Temp = SKK.SchnittPunkt1;
@@ -999,8 +983,8 @@ namespace RiggVar.Rgg
                         break;
 
                     default:
-                        // case TSalingTyp.stOhne, TSalingTyp.stOhne_2:          
-                        // 1. Aufruf SchnittKK: Wante2d und Mast; TempC ermitteln
+                        // case TSalingTyp.stOhneBiegt, TSalingTyp.stOhneStarr:
+                        // 1. Aufruf SchnittKK: Wante2D und Mast; TempC ermitteln
                         SKK.Radius1 = FrWunten2D + FrWoben2D;
                         SKK.Radius2 = FrMastUnten + FrMastOben;
                         SKK.MittelPunkt1 = rP.P0;
@@ -1014,7 +998,7 @@ namespace RiggVar.Rgg
                         break;
                 }
             }
-            catch (Exception ex) // on EMathError do
+            catch (Exception ex)
             {
                 _ = LogList.AppendLine("TGetriebeFS.GetVorstagNull:  " + ex.Message);
             }

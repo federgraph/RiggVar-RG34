@@ -300,7 +300,7 @@ namespace RiggVar.Rgg
                 SKK.MittelPunkt2 = rPe.D0;
                 rPe.C0 = SKK.SchnittPunkt1;
             }
-            catch (Exception ex) // on E: EMathError do
+            catch (Exception ex)
             {
                 LogList.AppendLine("TRiggFS.MakeRumpfKoord:  " + ex.Message);
             }
@@ -397,7 +397,7 @@ namespace RiggVar.Rgg
                 rPe.F.Y = 0;
                 rPe.F.Z = rPe.D0.Z + (FiMastL * Math.Sin(gammaE));
             }
-            catch (Exception ex) // on E: EMathError do
+            catch (Exception ex)
             {
                 LogList.AppendLine("TRiggFS.MakeKoord:  " + ex.Message);
             }
@@ -414,13 +414,13 @@ namespace RiggVar.Rgg
             {
                 SKK.SchnittEbene = TSchnittEbene.seXZ;
 
-                SKK.Radius1 = rLe.AD; // FrSalingL; 
-                SKK.Radius2 = rLe.AC; // FrWoben3d; 
+                SKK.Radius1 = rLe.AD;
+                SKK.Radius2 = rLe.AC;
                 TempD = SKK.Null;
-                TempD.X = rLe.D0D; // FrMastunten 
+                TempD.X = rLe.D0D;
                 SKK.MittelPunkt1 = TempD;
                 TempC = SKK.Null;
-                TempC.X = rLe.D0D + rLe.DC; // FrMastunten + FrMastoben; 
+                TempC.X = rLe.D0D + rLe.DC;
                 SKK.MittelPunkt2 = TempC;
                 TempA = SKK.SchnittPunkt1;
                 TempA.Y = 0;
@@ -435,7 +435,7 @@ namespace RiggVar.Rgg
                 }
 
                 SKK.Radius1 = rLe.A0D0;
-                SKK.Radius2 = rLe.A0A; // FrWunten3d; 
+                SKK.Radius2 = rLe.A0A;
                 SKK.MittelPunkt1 = SKK.Null;
                 SKK.MittelPunkt2 = TempA;
                 TempA0 = SKK.SchnittPunkt1;
@@ -454,7 +454,7 @@ namespace RiggVar.Rgg
                 WStrich2d = Math.Sqrt(Sqr(WStrich3d) - Sqr(rPe.A0.Y));
 
                 SKK.Radius1 = WStrich2d;
-                SKK.Radius2 = rLe.D0D + rLe.DC; // FrMastunten + FrMastoben; 
+                SKK.Radius2 = rLe.D0D + rLe.DC;
                 SKK.MittelPunkt1 = rPe.P0;
                 SKK.MittelPunkt2 = rPe.D0;
                 rPe.C = SKK.SchnittPunkt1;
@@ -507,7 +507,7 @@ namespace RiggVar.Rgg
                 rPe.F.Y = 0;
                 rPe.F.Z = rPe.D0.Z + (FiMastL * Math.Sin(gammaE));
             }
-            catch (Exception ex) // on E: EMathError do
+            catch (Exception ex)
             {
                 LogList.AppendLine("TRiggFS.MakeKoord:  " + ex.Message);
             }
@@ -579,7 +579,7 @@ namespace RiggVar.Rgg
             // Kräfte ermitteln  
             // Punkt C0  
             SplitF.h = P0C0;
-            SplitF.l2 = rL.A0B0; // PüttingAbstand 
+            SplitF.l2 = rL.A0B0;
             SplitF.F = Fachwerk.FS[fw7];
             SplitF.SplitCalc();
             rF.B0C0 = SplitF.F1;
@@ -587,7 +587,7 @@ namespace RiggVar.Rgg
 
             // Punkt D0  
             SplitF.h = P0D0;
-            SplitF.l2 = rL.A0B0; // PüttingAbstand 
+            SplitF.l2 = rL.A0B0;
             SplitF.F = Fachwerk.FS[fw9];
             SplitF.SplitCalc();
             rF.B0D0 = SplitF.F1;
@@ -595,7 +595,7 @@ namespace RiggVar.Rgg
 
             // Punkt C  
             SplitF.h = P0C;
-            SplitF.l2 = rL.A0B0; // PüttingAbstand 
+            SplitF.l2 = rL.A0B0;
             if (SalingTyp == TSalingTyp.stOhneStarr)
             {
                 SplitF.F = Fachwerk.WantenPower;
@@ -644,14 +644,14 @@ namespace RiggVar.Rgg
             string S;
 
             MakeRumpfKoord();
-            rPe[Rigg.ooE] = rP[Rigg.ooE];
+            rPe.E = rP.E;
             try
             {
                 SKK.SchnittEbene = TSchnittEbene.seXZ;
 
-                // 1. Aufruf SchnittKK: Wante2d und Mast; ooC ermitteln  
-                SKK.Radius1 = Math.Sqrt(Sqr(rLe[8] + rLe[13]) - Sqr(rLe[6] / 2));
-                SKK.Radius2 = rLe[15] + rLe[16];
+                // 1. Aufruf SchnittKK: Wante2D und Mast; ooC ermitteln  
+                SKK.Radius1 = Math.Sqrt(Sqr(rLe.A0A + rLe.AC) - Sqr(rLe.A0B0 / 2));
+                SKK.Radius2 = rLe.DC + rLe.D0D;
                 SKK.MittelPunkt1 = rPe.P0;
                 SKK.MittelPunkt2 = rPe.D0;
                 rPe[Rigg.ooC] = SKK.SchnittPunkt1;
@@ -667,12 +667,12 @@ namespace RiggVar.Rgg
 
                 // Punkte ooA, ooB, ooD und ooP ermitteln  
                 Temp = rPe.C - rPe.D0;
-                Skalar = rLe[16] / (rLe[15] + rLe[16]); // Mastunten / Mast  
+                Skalar = rLe.D0D / (rLe.DC + rLe.D0D); // Mastunten / Mast  
                 Temp.X = Skalar * Temp.X;
                 Temp.Z = Skalar * Temp.Z;
                 rPe.D = rPe.D0 + Temp;
 
-                Skalar = rLe[13] / (rLe[8] + rLe[13]); // Woben3d / Wante3d  
+                Skalar = rLe.AC / (rLe.A0A + rLe.AC); // Woben3D / Wante3D  
                 rPe.P.X = rPe.C.X - (Skalar * (rPe.C.X - rPe.P0.X));
                 rPe.P.Y = 0;
                 rPe.P.Z = rPe.C.Z - (Skalar * (rPe.C.Z - rPe.P0.Z));
@@ -689,7 +689,7 @@ namespace RiggVar.Rgg
                 rPe.F.Y = 0;
                 rPe.F.Z = rPe.D0.Z + (FiMastL * Math.Sin(gammaE));
             }
-            catch (Exception ex) // on E: EMathError do
+            catch (Exception ex)
             {
                 LogList.AppendLine("TRiggFS.MakeKoord:  " + ex.Message);
             }
@@ -774,7 +774,6 @@ namespace RiggVar.Rgg
                 {
                     RiggOK = false;
                     LogList.AppendLine("TRiggFS.Probe: Probe falsch");
-                    //MessageDlg("Probe falsch!", mtInformation, [mbOK], 0);
                 }
                 else
                 {
@@ -795,9 +794,9 @@ namespace RiggVar.Rgg
                 LogList.AppendLine(string.Format("TRiggFS.Probe: ProbeOS B0 = {0}", tempResult));
                 test = test && temptest;
                 // Probe Punkt C0  
-                KnotenLastC0.X = rF[19] * -Math.Cos(delta1);
+                KnotenLastC0.X = rF.E0E * -Math.Cos(delta1);
                 KnotenLastC0.Y = 0;
-                KnotenLastC0.Z = rF[19] * Math.Sin(delta1);
+                KnotenLastC0.Z = rF.E0E * Math.Sin(delta1);
                 TetraF.KnotenLast = KnotenLastC0;
                 temptest = Probe(Rigg.ooC0, Rigg.ooA0, Rigg.ooB0, Rigg.ooD0, Rigg.ooC, 3, 2, 1, 14);
                 tempResult = TetraF.ProbeErgebnis;
@@ -823,7 +822,6 @@ namespace RiggVar.Rgg
                 {
                     RiggOK = false;
                     LogList.AppendLine("TRigg.Probe: Probe falsch");
-                    // MessageDlg("Probe falsch!", mtInformation, [mbOK], 0);
                 }
                 else
                 {
@@ -1050,8 +1048,8 @@ namespace RiggVar.Rgg
             }
 
             /*
-            if (TrimmSoll.Spannung < KraftMin) TrimmSoll.Spannung = Round(KraftMin)+1;
-            if (TrimmSoll.Spannung > KraftMax) TrimmSoll.Spannung = Round(KraftMax)-1;
+            if (TrimmSoll.Spannung < KraftMin) TrimmSoll.Spannung = Round(KraftMin) + 1;
+            if (TrimmSoll.Spannung > KraftMax) TrimmSoll.Spannung = Round(KraftMax) - 1;
             */
             TrimmSollOut = false;
             if (TrimmSoll.Spannung < KraftMin)
