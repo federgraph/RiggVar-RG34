@@ -5,7 +5,7 @@ namespace RiggVar.Rgg
 
     public class TMast : TGetriebeFS
     {
-        private double l0; //in mm
+        private double l0; // in mm
         private float[] f = new float[Rigg.TLineDataR100]; // Durchbiegungswerte in mm
 
         private int FLineCountM = 100;
@@ -48,7 +48,7 @@ namespace RiggVar.Rgg
         public TMast() : base()
         {
             // Achtung: inherited Create() ruft virtuelle Funktionen auf,
-            // deshalb muß z.Bsp. EI vorher initialisiert werden, sonst Division durch Null.			
+            // deshalb muß z.Bsp. EI vorher initialisiert werden, sonst Division durch Null.
             BerechneWinkel();
         }
 

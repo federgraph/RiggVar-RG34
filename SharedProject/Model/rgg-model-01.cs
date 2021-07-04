@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace RiggVar.Rgg
 {
-
-    [Serializable]
-    public class EFileFormatError : Exception
-    {
-    }
 
     public enum TKurvenTyp
     {
@@ -79,10 +73,10 @@ namespace RiggVar.Rgg
     }
     public enum TSalingTyp
     {
-        stOhneStarr,
-        stDrehbar,
         stFest,
-        stOhneBiegt
+        stDrehbar,
+        stOhneBiegt,
+        stOhneStarr
     }
     public enum TControllerTyp
     {
@@ -243,9 +237,9 @@ namespace RiggVar.Rgg
         //Biegeknicken, wird in der Trimmtabelle untergebracht:
         /* 
         public bool FKorrigiert;
-        public double FExcenter; //in mm
-        public double FKnicklaenge; //in mm
-        public double FKorrekturFaktor; //dimensionslos
+        public double FExcenter; // in mm
+        public double FKnicklaenge; // in mm
+        public double FKorrekturFaktor; // dimensionslos
         */
     }
 
@@ -259,9 +253,6 @@ namespace RiggVar.Rgg
 
     public class Rigg
     {
-        public const int TIntRiggPoints = 15;
-        public const int TRealRiggPoints = 15;
-        public const int TRiggRodsHigh = 20;
         public const int TLineDataR100 = 101;
         public const int TLine = 101;
         public const int TKoordLine = 101;
@@ -291,7 +282,7 @@ namespace RiggVar.Rgg
         public const int ooF = 13;
         public const int ooP = 14;
         public const int ooM = 15;
-        public const int TRiggPointHigh = 15;
+        public const int TRiggPointHigh = 16;
 
         // enum TsbName
         public const int Controller = 0;
@@ -336,52 +327,44 @@ namespace RiggVar.Rgg
         public const int itGerade = 1;
         public const int itParabel = 2;
         public const int itBezier = 3;
-        public const int TTabellenTypHigh = 4;
 
         // enum TViewPoint
         public const int vpSeite = 0;
         public const int vpAchtern = 1;
         public const int vpTop = 2;
         public const int vp3D = 3;
-        public const int TViewPointHigh = 4;
 
         // enum TSalingTyp
-        public const int stOhne = 0;
+        public const int stFest = 0;
         public const int stDrehbar = 1;
-        public const int stFest = 2;
-        public const int stOhne_2 = 3;
-        public const int TSalingTypHigh = 4;
+        public const int stOhneBiegt = 2;
+        public const int stOhneStarr = 3;
 
         // enum TControllerTyp
         public const int ctOhne = 0;
         public const int ctDruck = 1;
         public const int ctZugDruck = 2;
-        public const int TControllerTypHigh = 3;
 
         // enum TGetriebeStatus
         public const int gsWanteZukurz = 0;
         public const int gsWanteZulang = 1;
         public const int gsErrorPsivonPhi = 2;
-        public const int TGetriebeStatusHigh = 3;
 
         // enum TRiggStatus
         public const int rsNichtEntspannbar = 0;
         public const int rsWanteAufDruck = 1;
         public const int rsKraftZuGross = 2;
-        public const int TRiggStatusHigh = 3;
 
         // enum TCalcTyp
         public const int ctQuerKraftBiegung = 0;
         public const int ctBiegeKnicken = 1;
         public const int ctKraftGemessen = 2;
-        public const int TCalcTypHigh = 3;
 
         // enum TMastStatus
         public const int msBiegungNegativ = 0;
         public const int msControllerJenseits = 1;
         public const int msZugKraftimMast = 2;
         public const int msControllerKraftzuGross = 3;
-        public const int TMastStatusHigh = 4;
 
         // enum TrimmIndex
         public const int tiMastfallF0F = 0;
@@ -522,26 +505,26 @@ namespace RiggVar.Rgg
                                                   "Winkel [1E-1 Grad]",	// Winkel    
                                                   "Vorstaglänge [mm]", // Vorstag   
                                                   "Wantenlänge [mm]", // Wante     
-                                                  "Länge des oberen Wantenabschnitts [mm]", // Woben     
+                                                  "Länge des oberen Wantenabschnitts [mm]", // Woben
                                                   "Höhe des Salingdreiecks [mm]", //SalingH   
-                                                  "Saling-Abstand [mm]", // Salingg   
+                                                  "Saling-Abstand [mm]", // SalingA
                                                   "Saling-Länge [mm]", // SalingL  
-                                                  "Vorstaglänge [mm]", // VorstagOS, wird nicht benutzt
-                                                  "Wantenspannung [N]" // WPowerOS, wird nicht benutzt 
+                                                  "Vorstaglänge [mm]", // VorstagOS, nicht benutzt
+                                                  "Wantenspannung [N]" // WPowerOS (Wanten-Power Ohne Saling), nicht benutzt 
                                               };
 
 
         public readonly static string[] XMLSBName = { //: array[TsbName] of string = (
-                                                "E0E", //Controller
-                                                "Alpha", //Winkel
-                                                "C0C", //Vorstag
-                                                "A0AC", //Wante
-                                                "AC", //Woben
-                                                "PD", //SalingH
-                                                "AB", //SalingA
-                                                "AD", //SalingL
-                                                "VorstagOS", //VorstagOS
-                                                "WKraftOS" //WPowerOS
+                                                "E0E", // Controller
+                                                "Alpha", // Winkel
+                                                "C0C", // Vorstag
+                                                "A0AC", // Wante
+                                                "AC", // Woben
+                                                "PD", // SalingH
+                                                "AB", // SalingA
+                                                "AD", // SalingL
+                                                "VorstagOS", // VorstagOS
+                                                "WKraftOS" // WPowerOS
                                             };
 
 

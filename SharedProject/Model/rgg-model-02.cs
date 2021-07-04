@@ -438,7 +438,6 @@ namespace RiggVar.Rgg
                 }
                 else if (FGetriebeStatus.IsMember(Rigg.gsWanteZulang))
                 {
-                    //s = s + Format(" Wante um %5.2f mm zu lang!", [FrWanteZulang]);
                     s += string.Format(" Wante um {0,5:F2} mm zu lang!", FrWanteZulang);
                 }
                 else if (FGetriebeStatus.IsMember(Rigg.gsErrorPsivonPhi))
@@ -550,7 +549,7 @@ namespace RiggVar.Rgg
                     tempTangens = tempSinus / tempCosinus;
                     tempWS = Math.Atan(tempTangens);
                 }
-                catch // on EMathError do
+                catch
                 {
                     Debug.WriteLine("Ebenen senkrecht in GetSalingDaten!");
                 }
@@ -599,7 +598,7 @@ namespace RiggVar.Rgg
                 IntGliederToReal();
             }
         }
-        public double this[int Index] // RealGlied[Index: TsbName]
+        public double this[int Index]
         {
             get
             {
@@ -657,7 +656,7 @@ namespace RiggVar.Rgg
             }
         }
 
-        public double this[TsbName Index] // RealGlied[Index: TsbName]
+        public double this[TsbName Index]
         {
             get
             {

@@ -21,7 +21,7 @@ namespace RiggVar.Rgg
         public int FiControllerAnschlag { get; set; }
         public int FiReserved { get; set; }
         // Rumpf: Koordinaten in mm
-        public TIntPoint[] iP = new TIntPoint[Rigg.TIntRiggPoints];
+        public TIntPoint[] iP = new TIntPoint[Rigg.TRiggPointHigh];
         // Festigkeitswerte
         public TRiggRods rEA = new TRiggRods(); // in N
         public double EI { get; set; } // Nmm^2
