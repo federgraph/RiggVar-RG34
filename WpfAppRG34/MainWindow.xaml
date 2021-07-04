@@ -16,7 +16,7 @@
 
         <Grid Margin="70" x:Name="HelixHost"></Grid>
 
-        <Grid Name="Graph3DGrid" Background="#00000000" IsHitTestVisible="False">
+        <Grid x:Name="TextGrid" Background="#00000000" IsHitTestVisible="False">
             <Grid>
                 <Grid.Resources>
                     <Style TargetType="TextBlock">
@@ -61,10 +61,10 @@
 
         <rgg:ButtonFrame x:Name="BtnFrame"></rgg:ButtonFrame>
 
-        <Canvas IsHitTestVisible="False">
-        <TextBlock x:Name="ClickText" Margin="150, 80" FontSize="18"
+        <Canvas x:Name="DebugTextContainer" IsHitTestVisible="False">
+            <TextBlock x:Name="ClickText" Margin="150, 80" FontSize="18"
                    Foreground="AntiqueWhite">Click</TextBlock>
-        <TextBlock x:Name="TouchText" Margin="300, 80" FontSize="18"
+            <TextBlock x:Name="TouchText" Margin="300, 80" FontSize="18"
                    Foreground="Aquamarine">Touch</TextBlock>
             <TextBlock x:Name="HintText" Margin="450, 80" FontSize="18"
                    Foreground="Yellow" >Hint</TextBlock>
