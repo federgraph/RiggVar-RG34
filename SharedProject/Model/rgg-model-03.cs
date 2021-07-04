@@ -427,7 +427,7 @@ namespace RiggVar.Rgg
             rP.D = SKK.AnglePointXZ(rP.D0, FrMastUnten, psi - FrAlpha);
             rP.P = SKK.IntersectionXZ1(rP.P0, rP.D, FrWunten2D, FrSalingH);
             rP.C = SKK.IntersectionXZ1(rP.P, rP.D, FrWoben2D, FrMastOben);
-            return  rP.C0.Distance(rP.C);
+            return rP.C0.Distance(rP.C);
         }
         public void BerechneWinkel()
         {
@@ -600,7 +600,7 @@ namespace RiggVar.Rgg
             // 1. Berechnung Länge D0F aus Durchbiegung
             k1 = Math.Sqrt(RggCalc.Sqr(FrMastUnten) - RggCalc.Sqr(Biegung));
             k2 = Math.Sqrt(RggCalc.Sqr(FrMastOben) - RggCalc.Sqr(Biegung));
-            tempAlpha = Math.Atan2(Biegung , k1);
+            tempAlpha = Math.Atan2(Biegung, k1);
             k4 = (k1 + k2) * Math.Sin(tempAlpha);
             k6 = (k1 + k2) * Math.Cos(tempAlpha);
             tempGamma = Math.Atan2(k4, k6 - FrMastUnten);
@@ -889,7 +889,7 @@ namespace RiggVar.Rgg
         }
         public double WantenKraftvonVorstag(double WegSoll)
         {
-            // liefert Wantenspannung 3D in Abh�ngigkeit von der Auslenkung des Vorstags
+            // liefert Wantenspannung 3D in Abhängigkeit von der Auslenkung des Vorstags
             return TrimmTab.EvalX(WegSoll);
         }
         public double GetVorstagNull()

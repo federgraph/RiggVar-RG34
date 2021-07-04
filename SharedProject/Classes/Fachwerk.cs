@@ -16,7 +16,6 @@ namespace RiggVar.Rgg
 
         const int TStabVektor = 9;
         const int TKnotenVektor = 6;
-        // const int TLagerkreafte = 4;
         const int TAuflager = 4;
 
         const int AX = 0;
@@ -35,7 +34,7 @@ namespace RiggVar.Rgg
         private readonly double[] InitX = { 2870, 2300, 2800, 4140, 2870, 2560 };
         private readonly double[] InitY = { 400, 2600, 4600, 340, -100, 430 };
 
-        // Anfangswert für äußere Belastung in N
+        // Anfangswerte für äußere Belastung in N
         private readonly double[] BelastungX = { 0.00, 0.00, 0.00, 0, 0.00, 0 };
         private readonly double[] BelastungY = { 0.00, 0.00, 0.00, 0, 0.00, 0 };
 
@@ -51,7 +50,7 @@ namespace RiggVar.Rgg
         public int K1; // KnotenNr. des Festlagers A
         public int K2; // KnotenNr. des Loslagers B
         public double Phi; // Winkel von FB in Grad
-        public int S; // Anzahl der Staebe
+        public int S; // Anzahl der Stäbe
         public int[,] G = new int[2, 9]; // TGeometrie; Geometriematrix
         public double[] vektorEA = new double[TStabVektor]; // Vektor EA
         public double[] KX = new double[TKnotenVektor]; // Koordinaten
@@ -88,7 +87,7 @@ namespace RiggVar.Rgg
             K1 = fw6; // KnotenNr. des Festlagers A
             K2 = fw5; // KnotenNr. des Loslagers B
             Phi = 30; // Winkel von FB in Grad
-            S = (2 * K) - 3; // Anzahl der Staebe
+            S = (2 * K) - 3; // Anzahl der Stäbe
             G = constantG;
             vektorEA = constantEA;
             KX = InitX;
@@ -244,7 +243,6 @@ namespace RiggVar.Rgg
                         PORad = PO2[l] * Math.PI / 180; // Richtung in Rad 
                     }
 
-
                     // 2. FW nur mit Kraft "1" auf Knoten l belasten.  
                     Sum1FX = Math.Cos(PORad);  // x-Komponenten der Last "1" 
                     Sum1FY = Math.Sin(PORad);  // y-Komponenten der Last "1" 
@@ -267,7 +265,6 @@ namespace RiggVar.Rgg
                     Stabkraefte();
 
                     // 6. Verschiebungsanteile summieren.  
-
                     F = 0;
                     for (int i = 0; i < S; i++)
                     {

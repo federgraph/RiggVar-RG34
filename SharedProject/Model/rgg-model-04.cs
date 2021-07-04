@@ -5,17 +5,14 @@ namespace RiggVar.Rgg
 
     public class TMast : TGetriebeFS
     {
-        //const int LineCount = 100;
-
         private double l0; //in mm
-        private float[] f = new float[Rigg.TLineDataR100]; // TLineDataR100; Durchbiegungswerte in mm
+        private float[] f = new float[Rigg.TLineDataR100]; // Durchbiegungswerte in mm
 
         private int FLineCountM = 100;
         private TControllerTyp FControllerTyp = TControllerTyp.ctDruck;
         private TCalcTyp FCalcTyp = TCalcTyp.ctBiegeKnicken;
         private TEnumSet FMastStatus = new TEnumSet(typeof(TMastStatus));
         private bool FKorrigiert = true;
-        //private TKraftGraph FKraftGraph;
 
         protected double EI = 14.7E9; // Nmm^2
         protected double FEx, FEy, FDx, FDy, FD0x, FD0y, FCx, FCy;
@@ -27,11 +24,11 @@ namespace RiggVar.Rgg
         public double hd, he, lc, ld, le; // in mm
         public double F1, F2, FA, FB, FC; // in N
 
-        // gammaE bedeutet gammaEntlastet und wird in RggUnit3 verwenet, hier nicht
+        // gammaE bedeutet gammaEntlastet
         public double beta, gamma, gammaE, delta1, delta2, alpha1, alpha2; // in rad
         public double eps1, eps2, epsA, epsB; // in rad
 
-        public TRiggRods rL = new TRiggRods(); // double[Rigg.TRiggRodsHigh]; // Längen belastet 3d in mm
+        public TRiggRods rL = new TRiggRods(); // Längen belastet 3d in mm
 
         public double FExcenter = 20.0; // in mm, Erfahrungswert
         public double FKnicklaenge = 4600.0; // in mm
@@ -50,8 +47,8 @@ namespace RiggVar.Rgg
 
         public TMast() : base()
         {
-            // Achtung: inherited Create() ruft virtuelle Funktionen auf, deshalb muß
-            // z.Bsp. EI vorher initialisiert werden, sonst Division durch Null!			
+            // Achtung: inherited Create() ruft virtuelle Funktionen auf,
+            // deshalb muß z.Bsp. EI vorher initialisiert werden, sonst Division durch Null.			
             BerechneWinkel();
         }
 
@@ -76,9 +73,9 @@ namespace RiggVar.Rgg
                 case TSalingTyp.stDrehbar:
                     FB = 1; // bekannte Kraft vom Betrag 1 im Mast
                     // KM  betrachteter Knoten
-                    // KU1 Knoten der zur 1. unbekannten Stabkraft FU1 geh�rt
-                    // KU2 Knoten der zur 2. unbekannten Stabkraft FU2 geh�rt
-                    // KB  Knoten der zur bekannten Stabkraft FB geh�rt
+                    // KU1 Knoten der zur 1. unbekannten Stabkraft FU1 gehört
+                    // KU2 Knoten der zur 2. unbekannten Stabkraft FU2 gehört
+                    // KB  Knoten der zur bekannten Stabkraft FB gehört
                     //        KM    KU1    KU2   KB         FU1      FU2      FB
                     SolveKG21(rP.C, rP.C0, rP.P, rP.D0, ref FU1, ref FU2, ref FB);
 
@@ -317,9 +314,9 @@ namespace RiggVar.Rgg
                 FA = -((F1 * le) + (F2 * ld) - (lc * F1) - (lc * F2)) / lc;
                 // Mastfuß ohne Einfluß der Druckkraft im Mast
                 FB = ((F1 * le) + (F2 * ld)) / lc;
-                // Wantangriffspunkt ohne Einflu� der Druckkraft im Mast
+                // Wantangriffspunkt ohne Einfluß der Druckkraft im Mast
                 FC = -MastDruck;
-                // Druckkraft ist negativ. FC wird nur bei stOhne_2 verwendet,
+                // Druckkraft ist negativ. FC wird nur bei stOhneBiegt verwendet,
                 // die Druckkraft im Mast ergibt sich sonst über den Umweg der Salingkraft
             }
 
@@ -327,8 +324,8 @@ namespace RiggVar.Rgg
             {
                 F1 = -ControllerKraft;
                 F2 = 0; // Salingkraft, hier immer Null
-                FA = F1 * (lc - le) / lc; // Mastfuß ohne Einflu� von FC
-                FB = F1 * le / lc; // Wantangriffspunkt ohne Einflu� von FC
+                FA = F1 * (lc - le) / lc; // Mastfuß ohne Einfluß von FC
+                FB = F1 * le / lc; // Wantangriffspunkt ohne Einfluß von FC
                 FC = -MastDruck; // neg. Vorzeichen, da Druckkraft
             }
         }
@@ -412,12 +409,10 @@ namespace RiggVar.Rgg
                     {
                         hd = -hd;
                     }
-
                     if (SPController.X - rP.E.X > 0)
                     {
                         he = -he;
                     }
-
                     break;
 
                 case TSalingTyp.stOhneStarr:
@@ -432,7 +427,6 @@ namespace RiggVar.Rgg
                     {
                         he = -he;
                     }
-
                     break;
             }
 
@@ -476,11 +470,10 @@ namespace RiggVar.Rgg
                         FE = F1 / Math.Cos(alpha1);
                         FD = F2 / Math.Cos(alpha2);
                     }
-                    catch // on EZeroDivide do
+                    catch
                     {
                         FE = 0;
                         FD = 0;
-                        // MessageDlg("MBox: EZeroDivide; Math.Cos(alpha?) = 0", mtWarning, [mbOK], 0);
                     }
 
                     FLvon1 = FE * Math.Sin(alpha1);
@@ -512,11 +505,10 @@ namespace RiggVar.Rgg
                         FE = F1 / Math.Cos(alpha1);
                         FD = 0; // Null gesetzt, da nicht relevant 
                     }
-                    catch // on EZeroDivide do
+                    catch
                     {
                         FE = 0;
                         FD = 0;
-                        // MessageDlg("MBox: EZeroDivide; Math.Cos(alpha?) = 0", mtWarning, [mbOK], 0);
                     }
 
                     FLvon1 = FE * Math.Sin(alpha1);
@@ -741,7 +733,7 @@ namespace RiggVar.Rgg
                 DX3 = KB.X - KM.X; //delta x 
                 DY3 = KB.Z - KM.Z; //delta y 
                 W3 = Math.Sqrt(Sqr(DX3) + Sqr(DY3)); // Stablänge 
-                // Summe der bekannten Kr�fte 
+                // Summe der bekannten Kräfte 
                 // mit DX/W = cos alpha, DY/W = sin alpha 
                 BekanntFX = -FB * DX3 / W3;
                 BekanntFY = -FB * DY3 / W3;
@@ -758,7 +750,7 @@ namespace RiggVar.Rgg
                 FU1 = D1 / D * W1; // 1. neu ermittelte Stabkraft 
                 FU2 = D2 / D * W2; // 2. neu ermittelte Stabkraft 
             }
-            catch // on EZeroDivide do
+            catch
             {
                 // D ist Null, wenn FU1 und FU2 auf einer Geraden liegen.  
                 FU1 = 0;
@@ -785,7 +777,7 @@ namespace RiggVar.Rgg
                 }
 
                 S += "sind Null!";
-                //  MessageDlg(S, mtWarning, [mbOK], 0);
+                LogList.Append(S); //  MessageDlg(S, mtWarning, [mbOK], 0);
             }
         }
         protected override void BerechneF()
@@ -950,11 +942,11 @@ namespace RiggVar.Rgg
                 }
                 else if (FMastStatus.IsMember(Rigg.msControllerJenseits))
                 {
-                    S += " Controller �ber Mitte gestellt";
+                    S += " Controller über Mitte gestellt";
                 }
                 else if (FMastStatus.IsMember(Rigg.msZugKraftimMast))
                 {
-                    S += " Controller zu weit zur�ck";
+                    S += " Controller zu weit zurück";
                 }
                 else if (FMastStatus.IsMember(Rigg.msControllerKraftzuGross))
                 {

@@ -129,8 +129,8 @@ namespace RiggVar.Rgg
 
         //    Valid = false;
         //    PunkteAnzahl = 0;
-        //    //Achtung: Endweg wird nicht richtig erfa�t, wenn EndKraftMin zu klein ist!
-        //    EndPunkt = new Point(EndKraftMin, EndWegMin); //sp�ter Nebenwirkung �ber Eigenschaft
+        //    //Achtung: Endweg wird nicht richtig erfaßt, wenn EndKraftMin zu klein ist!
+        //    EndPunkt = new Point(EndKraftMin, EndWegMin); //später Nebenwirkung über Eigenschaft
         //    for (int i = 0; i < Tabelle.Count; i++)
         //    {
         //        S = Tabelle[i];
@@ -138,7 +138,7 @@ namespace RiggVar.Rgg
         //        if (S == "") continue;
         //        if (S.IndexOf('*') == -1) continue;
 
-        //        //String ohne '=' �berspringen
+        //        //String ohne '=' überspringen
         //        if (S.IndexOf('=') == -1)
         //        {
         //            Tabelle[i] = "***" + S;
@@ -172,7 +172,7 @@ namespace RiggVar.Rgg
         //                EndPunkt = Punkt;
         //        }
         //    }
-        //    MittelPunkt = MittelPunkt; //Mittelpunkt auf G�ltigkeit kontrollieren
+        //    MittelPunkt = MittelPunkt; //Mittelpunkt auf Gültigkeit kontrollieren
         //}
         public double EvalY(double x)
         {
@@ -197,7 +197,7 @@ namespace RiggVar.Rgg
             switch (TabellenTyp)
             {
                 case TTabellenTyp.itKonstante:
-                    result = 0; // result ist undefiniert - ev. Exception ausl�sen
+                    result = 0; // result ist undefiniert - ev. Exception auslösen
                     break;
                 case TTabellenTyp.itGerade:
                     result = a1 * x;
@@ -351,10 +351,7 @@ namespace RiggVar.Rgg
         }
         public TTabellenTyp TabellenTyp
         {
-            get
-            {
-                return FTabellenTyp;
-            }
+            get => FTabellenTyp;
             set
             {
                 // if (Value == FTabellenTyp) return;
@@ -381,10 +378,7 @@ namespace RiggVar.Rgg
         public bool Valid { get; set; }
         public RggPoint MittelPunkt
         {
-            get
-            {
-                return new RggPoint(x1, y1);
-            }
+            get => new RggPoint(x1, y1);
             set
             {
                 double rTemp, min, max;
@@ -450,10 +444,7 @@ namespace RiggVar.Rgg
         }
         public RggPoint EndPunkt
         {
-            get
-            {
-                return new RggPoint(x2, y2);
-            }
+            get => new RggPoint(x2, y2);
             set
             {
                 Valid = false;
@@ -463,10 +454,7 @@ namespace RiggVar.Rgg
         }
         public double EndwertKraft
         {
-            get
-            {
-                return x2;
-            }
+            get => x2;
             set
             {
                 Valid = false;
@@ -489,10 +477,7 @@ namespace RiggVar.Rgg
         }
         public double EndwertWeg
         {
-            get
-            {
-                return y2;
-            }
+            get => y2;
             set
             {
                 Valid = false;

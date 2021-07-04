@@ -65,7 +65,7 @@ namespace RiggVar.Rgg
             FiMastL = 6115; // Gesamtlänge Mast
             FiMastUnten = 2600; // unterer Teil Mast
             FiMastOben = 2000; // oberer Teil Mast
-            FiMastfallVorlauf = 5000; // Abstand der Me�marken
+            FiMastfallVorlauf = 5000; // Abstand der Meßmarken
             FiControllerAnschlag = 50;
             FiReserved = 0;
 

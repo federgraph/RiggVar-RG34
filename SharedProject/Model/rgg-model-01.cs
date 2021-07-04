@@ -238,7 +238,7 @@ namespace RiggVar.Rgg
         public double a2; // a2 = ((y2-y1)/(x2-x1) - a1)/(x2-x0)
         public double x0; // KraftAnfang - immer Null
         public double x1; // KraftMitte
-        public double x2; // KraftEnde, wird ben�tigt f�r Begrenzung
+        public double x2; // KraftEnde, wird benötigt für Begrenzung
 
         //Biegeknicken, wird in der Trimmtabelle untergebracht:
         /* 
@@ -264,7 +264,6 @@ namespace RiggVar.Rgg
         public const int TRiggRodsHigh = 20;
         public const int TLineDataR100 = 101;
         public const int TLine = 101;
-        //public const int TChartLine = CLMax + 1;
         public const int TKoordLine = 101;
         public const int TsbLabelArray = 10;
         public const int TKoordLabels = 14;
@@ -500,8 +499,8 @@ namespace RiggVar.Rgg
                                                     "C0D0 Vorstag - Mastfuß",
                                                     "B0C0 Pütting Bb - Vorstag",
                                                     "A0C0 Pütting Stb - Vorstag",
-                                                    "B0D0 Pütting Bb - Mastfu�",
-                                                    "A0D0 Pütting Stb - Mastfu�",
+                                                    "B0D0 Pütting Bb - Mastfuß",
+                                                    "A0D0 Pütting Stb - Mastfuß",
                                                     "A0B0 Püttingabstand",
                                                     "B0B Wante unten Bb",
                                                     "A0A Wante unten Stb",
@@ -610,7 +609,6 @@ namespace RiggVar.Rgg
             ZeroCtrl.SalingL = 0;
             ZeroCtrl.WPowerOS = 0;
 
-
             DefaultStreamData.Boot = 0;
             DefaultStreamData.No = 0;
             DefaultStreamData.Controller = 100;
@@ -623,7 +621,6 @@ namespace RiggVar.Rgg
             DefaultStreamData.SalingL = 489;
             DefaultStreamData.SalingTyp = TSalingTyp.stFest;
             DefaultStreamData.ControllerTyp = TControllerTyp.ctOhne;
-
 
             DefaultTrimmTabDaten.TabellenTyp = TTabellenTyp.itGerade;
             DefaultTrimmTabDaten.a0 = 0; // zur Zeit nicht verwendet
@@ -870,13 +867,7 @@ namespace RiggVar.Rgg
                 };
                 Add(r);
             }
-            public new TYAchseRecord this[int i]
-            {
-                get
-                {
-                    return i < Count ? base[i] : null;
-                }
-            }
+            public new TYAchseRecord this[int i] => i < Count ? base[i] : null;
         }
 
     }

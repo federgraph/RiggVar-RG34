@@ -60,9 +60,9 @@ namespace RiggVar.Rgg
             ED = t.ED;
             D0E = t.D0E;
             E0E = t.E0E;
-    }
+        }
 
-    public double this[TRiggRod Index]
+        public double this[TRiggRod Index]
         {
             get
             {
@@ -154,7 +154,7 @@ namespace RiggVar.Rgg
                 {
                     case 0: D0C = value; break;
                     case 1: C0D0 = value; break;
-                    case 2:  B0C0 = value; break;
+                    case 2: B0C0 = value; break;
                     case 3: A0C0 = value; break;
                     case 4: B0D0 = value; break;
                     case 5: A0D0 = value; break;

@@ -39,13 +39,7 @@ namespace RiggVar.Rgg
                 b[i] = false;
             }
         }
-        public int Count
-        {
-            get
-            {
-                return count;
-            }
-        }
+        public int Count => count;
         public bool IsEmpty
         {
             get

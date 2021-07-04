@@ -1117,7 +1117,7 @@ namespace RiggVar.Rgg
 
             if (FRiggStatus.IsMember(Rigg.rsKraftZuGross))
             {
-                S += "    Kraft zu gro�";
+                S += "    Kraft zu groß";
             }
 
             return S;

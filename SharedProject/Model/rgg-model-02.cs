@@ -162,31 +162,31 @@ namespace RiggVar.Rgg
         private void GetDefaultData()
         {
             // Initialisierung aller Integerwerte und der TrimmTabelle;
-            // nachfolgend mu� IntGliederToReal und Reset aufgerufen werden, um die
+            // nachfolgend muß IntGliederToReal und Reset aufgerufen werden, um die
             // Gleitkommawerte zu initialiseieren.
 
-            // L�ngen im Rigg in mm
+            // Längen im Rigg in mm
             FiControllerAnschlag = 50;
             FiController = 100; // Controllerposition bzw. Abstand E0-E
-            FiMastL = 6115; // Gesamtl�nge Mast
+            FiMastL = 6115; // Gesamtlänge Mast
             FiMastUnten = 2600; // unterer Teil Mast
             FiMastOben = 2000; // oberer Teil Mast
-            FiMastfallVorlauf = 5000; // Abstand der Me�marken
+            FiMastfallVorlauf = 5000; // Abstand der Meßmarken
             FiWunten3D = 2100; // unterer Teil Wante
             FiWoben3D = 2020; // oberer Teil Wante
-            FiSalingH = 220; // H�he des Salingdreiecks
+            FiSalingH = 220; // Höhe des Salingdreiecks
             FiSalingA = 850; // Abstand der Salingnocken
             FiSalingL = Round(Math.Sqrt(RggCalc.Sqr(FiSalingH) + RggCalc.Sqr(FiSalingA / 2)));
-            FiVorstag = 4500; // Vorstagl�nge
+            FiVorstag = 4500; // Vorstaglänge
             FiWinkel = 950; // Winkel der unteren Wantabschnitte Winkel in 10E-1 Grad
             FiWPowerOS = 1000; // angenommene Wantenspannung 3d
 
             // RumpfKoordinaten in mm
-            iP[Rigg.ooA0].x = 2560; // P�tting Stbd
+            iP[Rigg.ooA0].x = 2560; // Pütting Stbd
             iP[Rigg.ooA0].y = 765;
             iP[Rigg.ooA0].z = 430;
 
-            iP[Rigg.ooB0].x = 2560; // P�ttinge Bb
+            iP[Rigg.ooB0].x = 2560; // Püttinge Bb
             iP[Rigg.ooB0].y = -765;
             iP[Rigg.ooB0].z = 430;
 
@@ -194,7 +194,7 @@ namespace RiggVar.Rgg
             iP[Rigg.ooC0].y = 0;
             iP[Rigg.ooC0].z = 340;
 
-            iP[Rigg.ooD0].x = 2870; // Mastfu�
+            iP[Rigg.ooD0].x = 2870; // Mastfuß
             iP[Rigg.ooD0].y = 0;
             iP[Rigg.ooD0].z = -100;
 
@@ -270,11 +270,11 @@ namespace RiggVar.Rgg
             FiWinkel = (int)((90 + (Math.Atan2(1, 3) * 180 / Math.PI)) * 10);
             FiWPowerOS = 1000;
 
-            iP[Rigg.ooA0].x = (30 * f) + ox; // P�tting Stbd
+            iP[Rigg.ooA0].x = (30 * f) + ox; // Pütting Stbd
             iP[Rigg.ooA0].y = 40 * f;
             iP[Rigg.ooA0].z = (40 * f) + oz;
 
-            iP[Rigg.ooB0].x = (30 * f) + ox; // P�ttinge Bb
+            iP[Rigg.ooB0].x = (30 * f) + ox; // Püttinge Bb
             iP[Rigg.ooB0].y = -40 * f;
             iP[Rigg.ooB0].z = (40 * f) + oz;
 
@@ -282,7 +282,7 @@ namespace RiggVar.Rgg
             iP[Rigg.ooC0].y = 0;
             iP[Rigg.ooC0].z = (40 * f) + oz;
 
-            iP[Rigg.ooD0].x = (80 * f) + ox; // Mastfu�
+            iP[Rigg.ooD0].x = (80 * f) + ox; // Mastfuß
             iP[Rigg.ooD0].y = 0;
             iP[Rigg.ooD0].z = (10 * f) + oz;
 
@@ -290,7 +290,7 @@ namespace RiggVar.Rgg
             iP[Rigg.ooE0].y = 0;
             iP[Rigg.ooE0].z = (50 * f) + oz;
 
-            iP[Rigg.ooF0].x = (0 * f) + ox; //Spiegel
+            iP[Rigg.ooF0].x = (0 * f) + ox; // Spiegel
             iP[Rigg.ooF0].y = 0;
             iP[Rigg.ooF0].z = (30 * f) + oz;
 
@@ -338,8 +338,8 @@ namespace RiggVar.Rgg
         {
 
             // Gleitkommawerte initialisieren
-            // Wenn die Integerwerte f�r Rumpf und Mast ver�ndert wurden,
-            // dann mu� Reset aufgerufen werden, um die Gleitkommawerte zu aktualisieren.
+            // Wenn die Integerwerte für Rumpf und Mast verändert wurden,
+            // dann muß Reset aufgerufen werden, um die Gleitkommawerte zu aktualisieren.
 
             // Rumpfkoordinaten
             iP[Rigg.ooP0] = iP[Rigg.ooA0];
@@ -443,7 +443,7 @@ namespace RiggVar.Rgg
                 }
                 else if (FGetriebeStatus.IsMember(Rigg.gsErrorPsivonPhi))
                 {
-                    s += " Salingh�he zu klein!";
+                    s += " Salinghöhe zu klein!";
                 }
             }
             return s;
