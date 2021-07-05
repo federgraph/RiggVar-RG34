@@ -1,5 +1,4 @@
 using System;
-using System.Globalization;
 
 namespace RiggVar.Rgg
 {
@@ -105,7 +104,7 @@ namespace RiggVar.Rgg
             rP.C = SKK.IntersectionXZ1(rP.A, rP.D, FrWoben2D, FrMastOben);
 
             FrVorstag = rP.C0.Distance(rP.C);
-            FrSalingL = Math.Sqrt(RggCalc.Sqr(FrSalingH) + RggCalc.Sqr(FrSalingA / 2));
+            FrSalingL = SalingLFromHA();
             Rest();
         }
 
@@ -514,7 +513,7 @@ namespace RiggVar.Rgg
                 return;
             }
             FrWinkel = FrPhi - FrAlpha;
-            FrSalingL = Math.Sqrt(RggCalc.Sqr(FrSalingH) + RggCalc.Sqr(FrSalingA / 2));
+            FrSalingL = SalingLFromHA();
             Rest();
         }
         public TRealPoint[] Koppelkurve()
@@ -554,7 +553,7 @@ namespace RiggVar.Rgg
             phiE -= Math.PI / 180;
             WinkelStep = (phiE - phiA) / 100;
             phiM = phiA;
-            for (int i = 0; i <= 100; i++)
+            for (int i = 0; i < Rigg.KoppelCount; i++)
             {
                 psiM = RggCalc.PsiVonPhi(phiM, FrBasis, FrWunten2D, FrSalingH, FrMastUnten, ref svar);
                 rP.P.X = rP.P0.X + (FrWunten2D * Math.Cos(phiM - FrAlpha));
@@ -597,7 +596,7 @@ namespace RiggVar.Rgg
             // k3 = Abstand D0F
 
             // Bessere Werte für k3 und tempBeta bestimmen
-            KorrekturF(Biegung, k1, k2, ref k3, ref tempBeta, ref tempGamma); // virtuelle Methode
+            KorrekturF(Biegung, k1, k2, ref k3, ref tempBeta, ref tempGamma); // virtual
 
             // 2. Berechnung Punkt F mit Mastfall
             rP.F = SKK.IntersectionXZ1(rP.F0, rP.D0, Mastfall + FiMastfallVorlauf, k3);
@@ -798,7 +797,7 @@ namespace RiggVar.Rgg
             FrPhi = SKK.AngleXZM(rP.A0, rP.A);
             FrPhi = FrAlpha + (Math.PI / 2) + FrPhi;
             FrWinkel = FrPhi - FrAlpha;
-            FrSalingL = Math.Sqrt(RggCalc.Sqr(FrSalingH) + RggCalc.Sqr(FrSalingA / 2));
+            FrSalingL = SalingLFromHA();
             FrController = FiControllerAnschlag;
             Wanten2dTo3d();
         }
@@ -880,13 +879,12 @@ namespace RiggVar.Rgg
         public double GetVorstagNull()
         {
             TRealPoint Temp, TempP, TempD, TempC;
-            string s;
             double WStrich, WStrich2d, result;
 
             result = 0;
             try
             {
-                base.SKK.SchnittEbene = TSchnittEbene.seXZ;
+                SKK.SchnittEbene = TSchnittEbene.seXZ;
 
                 switch (SalingTyp)
                 {
@@ -895,15 +893,10 @@ namespace RiggVar.Rgg
                         // Schnittpunkt Temp wird im 2. Aufruf benötigt
                         SKK.Radius1 = FrSalingH;
                         SKK.Radius2 = FrWoben2D;
-                        Temp = SKK.Null;
-                        Temp.X = FrMastUnten;
-                        SKK.MittelPunkt1 = Temp;
-                        Temp.X = FrMastUnten + FrMastOben;
-                        SKK.MittelPunkt2 = Temp;
+                        SKK.MittelPunkt1 = new TRealPoint(FrMastUnten, 0, 0);
+                        SKK.MittelPunkt2 = new TRealPoint(FrMastUnten + FrMastOben, 0, 0);
                         Temp = SKK.SchnittPunkt1;
-                        s = SKK.Bemerkung;
-                        s = string.Format(CultureInfo.InvariantCulture, "GetVorstagNull, stFest/1: {0}", s);
-                        _ = LogList.AppendLine(s);
+                        _ = LogList.AppendLine(FormattableString.Invariant($"GetVorstagNull, stFest/1: {SKK.Bemerkung}"));
 
                         // 2. Aufruf SchnittKK: TempP ermitteln
                         SKK.Radius1 = FrWunten2D;
@@ -912,9 +905,7 @@ namespace RiggVar.Rgg
                         SKK.MittelPunkt2 = rP.D0;
                         TempP = SKK.SchnittPunkt1;
                         TempP.Y = 0;
-                        s = SKK.Bemerkung;
-                        s = string.Format(CultureInfo.InvariantCulture, "GetVorstagNull, stFest/2: {0}", s);
-                        _ = LogList.AppendLine(s);
+                        _ = LogList.AppendLine(FormattableString.Invariant($"GetVorstagNull, stFest/2: {SKK.Bemerkung}"));
 
                         // 3. Aufruf SchnittKK: Saling2d und MastUnten; TempD ermitteln
                         SKK.Radius1 = FrSalingH;
@@ -923,9 +914,7 @@ namespace RiggVar.Rgg
                         SKK.MittelPunkt2 = rP.D0;
                         TempD = SKK.SchnittPunkt1;
                         TempD.Y = 0;
-                        s = SKK.Bemerkung;
-                        s = string.Format(CultureInfo.InvariantCulture, "GetVorstagNull, stFest/3: {0}", s);
-                        _ = LogList.AppendLine(s);
+                        _ = LogList.AppendLine(FormattableString.Invariant($"GetVorstagNull, stFest/3: {SKK.Bemerkung}"));
 
                         // 4. Aufruf SchnittKK: WanteOben2d und MastOben; TempC ermitteln
                         SKK.Radius1 = FrWoben2D;
@@ -934,11 +923,7 @@ namespace RiggVar.Rgg
                         SKK.MittelPunkt2 = TempD;
                         TempC = SKK.SchnittPunkt1;
                         TempC.Y = 0;
-                        s = SKK.Bemerkung;
-                        s = string.Format(CultureInfo.InvariantCulture, "GetVorstagNull, stFest/4: {0}", s);
-                        _ = LogList.AppendLine(s);
-
-                        result = rP.C0.Distance(TempC);
+                        _ = LogList.AppendLine(FormattableString.Invariant($"GetVorstagNull, stFest/4: {SKK.Bemerkung}"));
                         break;
 
                     case TSalingTyp.stDrehbar:
@@ -952,9 +937,7 @@ namespace RiggVar.Rgg
                         SKK.MittelPunkt2 = TempC;
                         TempP = SKK.SchnittPunkt1;
                         TempP.Y = 0;
-                        s = SKK.Bemerkung;
-                        s = string.Format(CultureInfo.InvariantCulture, "GetVorstagNull, stDrehbar/1: {0}", s);
-                        _ = LogList.AppendLine(s);
+                        _ = LogList.AppendLine(FormattableString.Invariant($"GetVorstagNull, stDrehbar/1: {SKK.Bemerkung}"));
 
                         SKK.Radius1 = rP.D0.Distance(rP.A0);
                         SKK.Radius2 = FrWunten3D;
@@ -962,9 +945,7 @@ namespace RiggVar.Rgg
                         SKK.MittelPunkt2 = TempP;
                         Temp = SKK.SchnittPunkt1;
                         Temp.Y = 0;
-                        s = base.SKK.Bemerkung;
-                        s = string.Format(CultureInfo.InvariantCulture, "GetVorstagNull, stDrehbar/2: {0}", s);
-                        _ = LogList.AppendLine(s);
+                        _ = LogList.AppendLine(FormattableString.Invariant($"GetVorstagNull, stDrehbar/2: {SKK.Bemerkung}"));
 
                         WStrich = Temp.Distance(TempC);
                         WStrich2d = Math.Sqrt(RggCalc.Sqr(WStrich) - RggCalc.Sqr(rP.A0.Y));
@@ -975,28 +956,25 @@ namespace RiggVar.Rgg
                         SKK.MittelPunkt2 = rP.D0;
                         TempC = SKK.SchnittPunkt1;
                         TempC.Y = 0;
-                        s = SKK.Bemerkung;
-                        s = string.Format(CultureInfo.InvariantCulture, "GetVorstagNull, stDrehbar/3: {0}", s);
-                        _ = LogList.AppendLine(s);
-
-                        result = rP.C0.Distance(TempC);
+                        _ = LogList.AppendLine(FormattableString.Invariant($"GetVorstagNull, stDrehbar/3: {SKK.Bemerkung}"));
                         break;
 
-                    default:
-                        // case TSalingTyp.stOhneBiegt, TSalingTyp.stOhneStarr:
-                        // 1. Aufruf SchnittKK: Wante2D und Mast; TempC ermitteln
+                    case TSalingTyp.stOhneBiegt:
+                    case TSalingTyp.stOhneStarr:
                         SKK.Radius1 = FrWunten2D + FrWoben2D;
                         SKK.Radius2 = FrMastUnten + FrMastOben;
                         SKK.MittelPunkt1 = rP.P0;
                         SKK.MittelPunkt2 = rP.D0;
                         TempC = SKK.SchnittPunkt1;
                         TempC.Y = 0;
-                        s = SKK.Bemerkung;
-                        s = string.Format(CultureInfo.InvariantCulture, "GetVorstagNull, stOhne/1: {0}", s);
-                        _ = LogList.AppendLine(s);
-                        result = rP.C0.Distance(TempC);
+                        _ = LogList.AppendLine(FormattableString.Invariant($"GetVorstagNull, stOhne/1: {SKK.Bemerkung}"));
+                        break;
+
+                    default:
+                        TempC = SKK.Null;
                         break;
                 }
+                result = rP.C0.Distance(TempC);
             }
             catch (Exception ex)
             {
@@ -1006,5 +984,12 @@ namespace RiggVar.Rgg
         }
         public double VorstagDiff { get; private set; }
         public double SpannungW { get; private set; }
+
+        private double SalingLFromHA()
+        {
+            FrSalingL = Math.Sqrt(RggCalc.Sqr(FrSalingH) + RggCalc.Sqr(FrSalingA / 2));
+            return FrSalingL;
+        }
+
     }
 }

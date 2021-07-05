@@ -219,7 +219,7 @@ namespace RiggVar.Rgg
                 {
                     RiggOK = false;
                     FRiggStatus.Include(Rigg.rsKraftZuGross);
-                    _ = LogList.AppendLine(string.Format(CultureInfo.CurrentCulture, "TRiggFS.Split: Betrag rF[{0}] > 32000 N", j));
+                    _ = LogList.AppendLine($"TRiggFS.Split: Betrag rF[{j}] > 32000 N");
                 }
             }
         }

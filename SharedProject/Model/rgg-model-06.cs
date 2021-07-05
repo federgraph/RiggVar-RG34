@@ -1,5 +1,4 @@
 using System;
-using System.Globalization;
 using System.Text;
 
 namespace RiggVar.Rgg
@@ -222,7 +221,7 @@ namespace RiggVar.Rgg
             int x = (int)GSB.Find(p).Min;
             int y = (int)GSB.Find(p).Ist;
             int z = (int)GSB.Find(p).Max;
-            _ = SL.AppendLine(string.Format(CultureInfo.InvariantCulture, "{0}=[{1:00000}, {2:00000}, {3:00000}]", s, x, y, z));
+            _ = SL.AppendLine(FormattableString.Invariant($"{s}=[{x:00000}, {y:00000}, {z:00000}]"));
         }
 
         public void ChangeRigg(TFederParam CurrentParam, double value)
