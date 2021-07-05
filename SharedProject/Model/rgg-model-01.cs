@@ -259,6 +259,9 @@ namespace RiggVar.Rgg
         public const int BogenMax = 50;
         public const int BogenCount = BogenMax + 1;
 
+        // enum TRiggRods
+        public const int TRiggRodCount = 20;
+
         // enum TKoord
         public const int x = 0;
         public const int y = 1;
@@ -431,6 +434,22 @@ namespace RiggVar.Rgg
 
     public class RiggStrings
     {
+        public const string N0 = "N0";
+        public const string A0 = "A0";
+        public const string B0 = "B0";
+        public const string C0 = "C0";
+        public const string D0 = "D0";
+        public const string E0 = "E0";
+        public const string F0 = "F0";
+        public const string P0 = "P0";
+        public const string A = "A";
+        public const string B = "B";
+        public const string C = "C";
+        public const string D = "D";
+        public const string E = "E";
+        public const string F = "F";
+        public const string M = "M";
+
         public static readonly string[] KoordLabels = {
                                                   "Nullpunkt N0", 
                                                   "Pütting Stb",
@@ -468,12 +487,6 @@ namespace RiggVar.Rgg
                                                      "Punkt P",
                                                      "Punkt M"
                                                  };
-
-        public static readonly string[] KoordTexte = {"N0",
-                                                 "A0", "B0", "C0", "D0", "E0", "F0", "P0",
-                                                 "A ", "B ", "C ", "D ", "E ", "F ", "P ",
-                                                 "M"
-                                             };
 
         public static readonly string[] KoordTexteXML = {"N0",
                                                     "A0", "B0", "C0", "D0", "E0", "F0", "P0",

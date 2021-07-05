@@ -360,7 +360,7 @@ namespace RiggVar.Rgg
             else if (SalingTyp == TSalingTyp.stOhneBiegt)
             {
                 // Gleichgewicht am Punkt ooC
-                // ----------KM --KU1-----KU2----KB------FU1------FU2------FB
+                // ----------KM----KU1----KU2----KB------FU1------FU2------FB
                 SolveKG21(rP.C, rP.D0, rP.C0, rP.P0, ref FU1, ref FU2, ref FBekannt);
                 F1 = 0;
                 F2 = 0;
@@ -421,7 +421,7 @@ namespace RiggVar.Rgg
                     le = rP.D0.Distance(SPController);
                     lc = rL.D0C;
                     EC = rP.C.Distance(rP.E);
-                    hd = 0; // Null gesetzt, da nicht relevant
+                    hd = 0;
                     he = RggCalc.Hoehe(lc - 0.0001, rL.D0E, EC, ref k1);
                     if (SPController.X - rP.E.X > 0)
                     {
@@ -430,7 +430,7 @@ namespace RiggVar.Rgg
                     break;
             }
 
-            Clear(); // bei ctOhne wird hier die Mastlinie genullt
+            Clear();
         }
         private void FanOut()
         {
@@ -439,9 +439,9 @@ namespace RiggVar.Rgg
             {
                 case TSalingTyp.stFest:
                 case TSalingTyp.stDrehbar:
-                    gamma = (Math.PI / 2) - Math.Atan((rP[Rigg.ooC].X - rP[Rigg.ooD0].X) / (rP[Rigg.ooC].Z - rP[Rigg.ooD0].Z));
-                    delta1 = Math.Atan((rP[Rigg.ooE].Z - rP[Rigg.ooC0].Z) / (rP[Rigg.ooC0].X - rP[Rigg.ooE].X));
-                    delta2 = Math.Atan((rP[Rigg.ooA].Z - rP[Rigg.ooD].Z) / (rP[Rigg.ooD].X - rP[Rigg.ooA].X));
+                    gamma = (Math.PI / 2) - Math.Atan((rP.C.X - rP.D0.X) / (rP.C.Z - rP.D0.Z));
+                    delta1 = Math.Atan((rP.E.Z - rP.C0.Z) / (rP.C0.X - rP.E.X));
+                    delta2 = Math.Atan((rP.A.Z - rP.D.Z) / (rP.D.X - rP.A.X));
                     beta = gamma - (Math.PI / 2);
                     alpha1 = beta + delta1;
                     alpha2 = beta + delta2;
@@ -449,12 +449,12 @@ namespace RiggVar.Rgg
 
                 case TSalingTyp.stOhneStarr:
                 case TSalingTyp.stOhneBiegt:
-                    gamma = (Math.PI / 2) - Math.Atan((rP[Rigg.ooC].X - rP[Rigg.ooD0].X) / (rP[Rigg.ooC].Z - rP[Rigg.ooD0].Z));
-                    delta1 = Math.Atan((rP[Rigg.ooE].Z - rP[Rigg.ooC0].Z) / (rP[Rigg.ooC0].X - rP[Rigg.ooE].X));
-                    delta2 = 0; // Null gesetzt, da nicht relevant 
+                    gamma = (Math.PI / 2) - Math.Atan((rP.C.X - rP.D0.X) / (rP.C.Z - rP.D0.Z));
+                    delta1 = Math.Atan((rP.E.Z - rP.C0.Z) / (rP.C0.X - rP.E.X));
+                    delta2 = 0;
                     beta = gamma - (Math.PI / 2);
                     alpha1 = beta + delta1;
-                    alpha2 = 0; // Null gesetzt, da nicht relevant 
+                    alpha2 = 0;
                     break;
             }
 
@@ -489,8 +489,6 @@ namespace RiggVar.Rgg
                     FD0y = -FAy + FALy;
                     FCx = FB * Math.Cos(beta);
                     FCy = FB * Math.Sin(beta);
-                    // Mastdruckkraft FC hier nicht enthalten,
-                    // im Fachwerkmodul wird später spezielle Prozedur für Stabkräfte aufgerufen. 
 
                     FEx = FE * Math.Cos(delta1);
                     FEy = FE * Math.Sin(delta1);
@@ -503,7 +501,7 @@ namespace RiggVar.Rgg
                     try
                     {
                         FE = F1 / Math.Cos(alpha1);
-                        FD = 0; // Null gesetzt, da nicht relevant 
+                        FD = 0;
                     }
                     catch
                     {
@@ -512,7 +510,7 @@ namespace RiggVar.Rgg
                     }
 
                     FLvon1 = FE * Math.Sin(alpha1);
-                    FLvon2 = 0; // Null gesetzt, da nicht relevant 
+                    FLvon2 = 0;
                     FALvon12 = FLvon1 + FLvon2;
 
                     FAx = FA * Math.Cos(beta);
@@ -524,13 +522,11 @@ namespace RiggVar.Rgg
                     FD0y = -FAy + FALy;
                     FCx = FB * Math.Cos(beta);
                     FCy = FB * Math.Sin(beta);
-                    // Mastdruckkraft FC hier nicht enthalten,
-                    // im Fachwerkmodul wird später spezielle Prozedur für Stabkräfte aufgerufen. 
 
                     FEx = FE * Math.Cos(delta1);
                     FEy = FE * Math.Sin(delta1);
-                    FDx = 0; // Null gesetzt, da nicht relevant 
-                    FDy = 0; // Null gesetzt, da nicht relevant 
+                    FDx = 0;
+                    FDy = 0;
                     break;
             }
         }
@@ -575,24 +571,24 @@ namespace RiggVar.Rgg
         }
         private void GetSalingWeg()
         {
-            // aus CalcW1 abgeleitet. Ermittelt die Durchbiegung hd, wenn he vorgegeben ist
-            // und die Salingkraft F2 Null ist.
+            // aus CalcW1 abgeleitet. Ermittelt die Durchbiegung hd,
+            // wenn he vorgegeben und die Salingkraft F2 Null ist.
             double alpha11, tempF1, a01;
 
             alpha11 = le * le * Sqr(lc - le) / lc / EI / 3;
-            FControllerAlpha = alpha11; // im mm/N, wird in CalcWKnick gebraucht!
+            FControllerAlpha = alpha11; // im mm/N, wird in CalcWKnick gebraucht
             tempF1 = he / alpha11;
             a01 = (lc - ld) * le * ((lc * lc) - Sqr(lc - ld) - (le * le)) / lc / EI / 6;
             FSalingWeg = a01 * tempF1; // in mm
         }
         private void GetControllerWeg()
         {
-            // aus CalcW2 abgeleitet. Ermittelt die Durchbiegung he, wenn hd vorgegeben ist
-            // und die Controllerkraft F1 Null ist.
+            // aus CalcW2 abgeleitet. Ermittelt die Durchbiegung he,
+            // wenn hd vorgegeben und die Controllerkraft F1 Null ist.
             double alpha22, tempF2, a02;
 
             alpha22 = ld * ld * Sqr(lc - ld) / lc / EI / 3; // in mm/N
-            FSalingAlpha = alpha22; // im mm/N, wird in WvonF gebraucht!
+            FSalingAlpha = alpha22; // im mm/N, wird in WvonF gebraucht
             tempF2 = hd / alpha22;
             a02 = le * (lc - ld) * ((lc * lc) - (le * le) - Sqr(lc - ld)) / lc / EI / 6;
             FControllerWeg = a02 * tempF2; // in mm
@@ -682,7 +678,7 @@ namespace RiggVar.Rgg
             }
 
             Zaehler = 0;
-            FTempA = 0; //in N
+            FTempA = 0; // in N
             FTempB = EI * 3.14 * 3.14 / Knicklaenge / Knicklaenge; // Knicklast in N
             do
             {
@@ -777,7 +773,7 @@ namespace RiggVar.Rgg
                 }
 
                 S += "sind Null!";
-                LogList.Append(S); //  MessageDlg(S, mtWarning, [mbOK], 0);
+                LogList.Append(S);
             }
         }
         protected override void BerechneF()
@@ -971,18 +967,15 @@ namespace RiggVar.Rgg
             }
 
             PositionEStrich = (-le * Math.Sin(beta)) + (BiegungE * Math.Cos(beta));
-            PositionEStrich = PositionEStrich + (BiegungE * Math.Tan(alpha1) * Math.Sin(beta));
+            PositionEStrich += (BiegungE * Math.Tan(alpha1) * Math.Sin(beta));
             MastPositionE = Round(PositionEStrich);
         }
 
         public int MastEI
         {
-            get =>
-                // EI Werte intern in Nmm^2, extern in Nm^2
-                Round(EI / 1E6);
-            set =>
-                // EI Werte intern in Nmm^2, extern in Nm^2
-                EI = value * 1E6;
+            // EI Werte intern in Nmm^2, extern in Nm^2
+            get => Round(EI / 1E6);
+            set => EI = value * 1E6;
         }
         public int LineCountM
         {
@@ -1007,7 +1000,7 @@ namespace RiggVar.Rgg
             get => FCalcTyp;
             set => FCalcTyp = value;
         }
-        public float[] MastLinie // TLineData100
+        public float[] MastLinie // TLineDataR100
         {
             get => f;
             set => f = value;

@@ -109,11 +109,11 @@ namespace RiggVar.Rgg
             RealTrimm.SpannungW = SpannungW;
 
             // Mastfall
-            RealTrimm.Mastfall = rP.F0.Distance(rP.F); // in mm
+            RealTrimm.Mastfall = rP.F0.Distance(rP.F);
             // Vorstagspannung
             if (Math.Abs(rF.C0C) < 32000)
             {
-                RealTrimm.SpannungV = rF.C0C; // in N
+                RealTrimm.SpannungV = rF.C0C;
             }
             else
             {
@@ -128,11 +128,11 @@ namespace RiggVar.Rgg
                 }
             }
             // Biegung an den Salingen
-            RealTrimm.BiegungS = hd; // in mm
+            RealTrimm.BiegungS = hd;
             // Biegung am Controller
-            RealTrimm.BiegungC = he; // in mm
+            RealTrimm.BiegungC = he;
             // "Elastizität"
-            RealTrimm.FlexWert = rP.C.Distance(rPe.C); // in mm  
+            RealTrimm.FlexWert = rP.C.Distance(rPe.C);
         }
         public TTrimm Trimm => FTrimm;
         public double this[TTrimmIndex Index]
@@ -160,7 +160,7 @@ namespace RiggVar.Rgg
                     case TTrimmIndex.tiSpannungV:
                         if (Math.Abs(rF.C0C) < 32000)
                         {
-                            temp = rF.C0C; // in N
+                            temp = rF.C0C;
                         }
                         else
                         {
@@ -168,7 +168,6 @@ namespace RiggVar.Rgg
                             {
                                 temp = 32000;
                             }
-
                             if (rF.C0C < -32000)
                             {
                                 temp = -32000;
@@ -182,7 +181,7 @@ namespace RiggVar.Rgg
                         temp = he;
                         break;
                     case TTrimmIndex.tiFlexWert:
-                        temp = rP.C.Distance(rPe.C); // in mm
+                        temp = rP.C.Distance(rPe.C);
                         break;
                 }
                 return temp;

@@ -178,7 +178,7 @@ namespace RiggVar.Rgg
             FiSalingA = 850; // Abstand der Salingnocken
             FiSalingL = Round(Math.Sqrt(RggCalc.Sqr(FiSalingH) + RggCalc.Sqr(FiSalingA / 2)));
             FiVorstag = 4500; // Vorstaglänge
-            FiWinkel = 950; // Winkel der unteren Wantabschnitte Winkel in 10E-1 Grad
+            FiWinkel = 950; // Winkel der unteren Wantabschnitte in 10E-1 Grad
             FiWPowerOS = 1000; // angenommene Wantenspannung 3d
 
             // RumpfKoordinaten in mm
@@ -223,7 +223,7 @@ namespace RiggVar.Rgg
             GSB.InitStepDefault();
 
             // Bereichsgrenzen einstellen:
-            // Woben2d.Min + SalingH.Min > MastOben
+            // Woben2D.Min + SalingH.Min > MastOben
             // MastUnten + SalingH.Min > Abstand D0-P, daraus Winkel.Max
             GSB.Controller.Min = 50;
             GSB.Controller.Max = 200;
@@ -336,14 +336,13 @@ namespace RiggVar.Rgg
 
         public void Reset()
         {
-
             // Gleitkommawerte initialisieren
             // Wenn die Integerwerte für Rumpf und Mast verändert wurden,
             // dann muß Reset aufgerufen werden, um die Gleitkommawerte zu aktualisieren.
 
             // Rumpfkoordinaten
             iP[Rigg.ooP0] = iP[Rigg.ooA0];
-            iP[Rigg.ooP0].y = 0; // diesen Integerwert hier aktualisieren
+            iP[Rigg.ooP0].y = 0;
 
             rP.A0.X = iP[Rigg.ooA0].x;
             rP.A0.Y = iP[Rigg.ooA0].y;
@@ -423,9 +422,7 @@ namespace RiggVar.Rgg
         }
         public string GetriebeStatusText()
         {
-            string s;
-
-            s = "  Getriebe:";
+            string s = "  Getriebe:";
             if (FGetriebeOK)
             {
                 s += " O.K.";
@@ -438,7 +435,7 @@ namespace RiggVar.Rgg
                 }
                 else if (FGetriebeStatus.IsMember(Rigg.gsWanteZulang))
                 {
-                    s += string.Format(" Wante um {0,5:F2} mm zu lang!", FrWanteZulang);
+                    s += $" Wante um {FrWanteZulang,5:F2} mm zu lang!";
                 }
                 else if (FGetriebeStatus.IsMember(Rigg.gsErrorPsivonPhi))
                 {
