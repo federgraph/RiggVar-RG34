@@ -227,10 +227,10 @@ namespace RiggVar.Rgg
     public struct TTrimmTabDaten
     {
         public TTabellenTyp TabellenTyp;
-        public double a0; // a0 = y0 //a0 ist immer Null
+        public double a0; // a0 = y0, immer Null
         public double a1; // a1 = (y1-y0)/(x1-x0)
         public double a2; // a2 = ((y2-y1)/(x2-x1) - a1)/(x2-x0)
-        public double x0; // KraftAnfang - immer Null
+        public double x0; // KraftAnfang, immer Null
         public double x1; // KraftMitte
         public double x2; // KraftEnde, wird benötigt für Begrenzung
 
@@ -253,17 +253,17 @@ namespace RiggVar.Rgg
 
     public class Rigg
     {
-        public const int TLineDataR100 = 101;
-        public const int TLine = 101;
-        public const int TKoordLine = 101;
-        public const int TsbLabelArray = 10;
-        public const int TKoordLabels = 14;
+        // count of elements in array ( used when declaring or creating the array )
+        public const int MastLineDataCount = 101;
+        public const int KoppelCount = 101;
+        public const int BogenMax = 50;
+        public const int BogenCount = BogenMax + 1;
 
         // enum TKoord
         public const int x = 0;
         public const int y = 1;
         public const int z = 2;
-        public const int TKoord = 3;
+        public const int TKoordCount = 3;
 
         // enum TRiggPoint
         public const int ooN0 = 0;
@@ -282,7 +282,7 @@ namespace RiggVar.Rgg
         public const int ooF = 13;
         public const int ooP = 14;
         public const int ooM = 15;
-        public const int TRiggPointHigh = 16;
+        public const int TRiggPointCount = 16;
 
         // enum TsbName
         public const int Controller = 0;
@@ -295,7 +295,7 @@ namespace RiggVar.Rgg
         public const int SalingL = 7;
         public const int VorstagOS = 8;
         public const int WPowerOS = 9;
-        public const int TsbNameHigh = 10;
+        public const int TsbNameCount = 10;
 
         // enum TYAchseValue
         public const int yavDurchbiegungHD = 0;
@@ -312,7 +312,7 @@ namespace RiggVar.Rgg
         public const int yavRFAD = 11;
         public const int yavRFAB = 12;
         public const int yavRFAC = 13;
-        public const int TYAchseValueHigh = 14;
+        public const int TYAchseValueCount = 14;
 
         // enum TsbParam
         public const int Ist = 0;
@@ -320,7 +320,7 @@ namespace RiggVar.Rgg
         public const int Max = 2;
         public const int TinyStep = 3;
         public const int BigStep = 4;
-        public const int TsbParamHigh = 5;
+        public const int TsbParamCount = 5;
 
         // enum TTabellenTyp
         public const int itKonstante = 0;
@@ -366,7 +366,7 @@ namespace RiggVar.Rgg
         public const int msZugKraftimMast = 2;
         public const int msControllerKraftzuGross = 3;
 
-        // enum TrimmIndex
+        // enum TTrimmIndex
         public const int tiMastfallF0F = 0;
         public const int tiMastfallF0C = 1;
         public const int tiVorstagDiff = 2;
@@ -376,8 +376,6 @@ namespace RiggVar.Rgg
         public const int tiBiegungS = 6;
         public const int tiBiegungC = 7;
         public const int tiFlexWert = 8;
-
-        public const int BogenMax = 50;
 
         public static TRiggPoint FixIntToFixPoint(int FixInt)
         {
@@ -433,13 +431,14 @@ namespace RiggVar.Rgg
 
     public class RiggStrings
     {
-        public readonly static string[] KoordLabels = {
+        public static readonly string[] KoordLabels = {
+                                                  "Nullpunkt N0", 
                                                   "Pütting Stb",
                                                   "Pütting Bb",
                                                   "Vorstag Boot",
                                                   "Mastfuß",
                                                   "Controller E0",
-                                                  "SpiegelPunkt",
+                                                  "Spiegelpunkt",
                                                   "Punkt P0",
                                                   "Saling Stb",
                                                   "Saling Bb",
@@ -447,10 +446,12 @@ namespace RiggVar.Rgg
                                                   "Saling Mast",
                                                   "Controller",
                                                   "Masttop",
-                                                  "Punkt P"
+                                                  "Punkt P",
+                                                  "Vorlaufpunkt M"
                                               };
 
-        public readonly static string[] XMLKoordLabels = {
+        public static readonly string[] XMLKoordLabels = {
+                                                     "Nullpunkt",
                                                      "Puetting Stb",
                                                      "Puetting Bb",
                                                      "Vorstag Boot",
@@ -464,20 +465,23 @@ namespace RiggVar.Rgg
                                                      "Saling Mast",
                                                      "Controller",
                                                      "Masttop",
-                                                     "Punkt P"
+                                                     "Punkt P",
+                                                     "Punkt M"
                                                  };
 
-        public readonly static string[] KoordTexte = {
+        public static readonly string[] KoordTexte = {"N0",
                                                  "A0", "B0", "C0", "D0", "E0", "F0", "P0",
-                                                 "A ", "B ", "C ", "D ", "E ", "F ", "P "
+                                                 "A ", "B ", "C ", "D ", "E ", "F ", "P ",
+                                                 "M"
                                              };
 
-        public readonly static string[] KoordTexteXML = {
+        public static readonly string[] KoordTexteXML = {"N0",
                                                     "A0", "B0", "C0", "D0", "E0", "F0", "P0",
-                                                    "A", "B", "C", "D", "E", "F", "P"
+                                                    "A",  "B",  "C",  "D",  "E",  "F",  "P",
+                                                    "M"
                                                 };
 
-        public readonly static string[] AbstandLabels = {
+        public static readonly string[] AbstandLabels = {
                                                     "D0C Mast",
                                                     "C0D0 Vorstag - Mastfuß",
                                                     "B0C0 Pütting Bb - Vorstag",
@@ -500,7 +504,7 @@ namespace RiggVar.Rgg
                                                     "E0E Controller"
                                                 };
 
-        public readonly static string[] ParamLabels = {
+        public static readonly string[] ParamLabels = {
                                                   "Zustellung Mast-Controller [mm]", // Controller
                                                   "Winkel [1E-1 Grad]",	// Winkel    
                                                   "Vorstaglänge [mm]", // Vorstag   
@@ -514,7 +518,7 @@ namespace RiggVar.Rgg
                                               };
 
 
-        public readonly static string[] XMLSBName = { //: array[TsbName] of string = (
+        public static readonly string[] XMLSBName = { //: array[TsbName] of string = (
                                                 "E0E", // Controller
                                                 "Alpha", // Winkel
                                                 "C0C", // Vorstag
@@ -528,7 +532,7 @@ namespace RiggVar.Rgg
                                             };
 
 
-        public readonly static string[] XMLSBNameLong = { //: array[TsbName] of string = (
+        public static readonly string[] XMLSBNameLong = { //: array[TsbName] of string = (
                                                     "Controller", // Controller
                                                     "Winkel", // Winkel
                                                     "Vorstag", // Vorstag
@@ -541,7 +545,7 @@ namespace RiggVar.Rgg
                                                     "WantenspannungOS" // WPowerOS
                                                 };
 
-        public readonly static string[] XMLSBParam = { //: array[TsbParam] of string = (
+        public static readonly string[] XMLSBParam = { //: array[TsbParam] of string = (
                                                  "Value", // Ist
                                                  "Min", // Min
                                                  "Max", // Max
@@ -549,13 +553,14 @@ namespace RiggVar.Rgg
                                                  "Big" // BigStep
                                              };
 
-        public readonly static string[] XMLKoord = { //: array[TKoord] of string = (
+        public static readonly string[] XMLKoord = { //: array[TKoordCount] of string = (
                                                "X",
                                                "Y",
                                                "Z"
                                            };
 
-        public readonly static string[] XMLRiggPoints = { //: TKoordLabels = (
+        public static readonly string[] XMLRiggPoints = { //: array[TRiggPointCount] of string = (
+                                                    "ooN0",
                                                     "ooA0",
                                                     "ooB0",
                                                     "ooC0",
@@ -569,7 +574,8 @@ namespace RiggVar.Rgg
                                                     "ooD",
                                                     "ooE",
                                                     "ooF",
-                                                    "ooP"
+                                                    "ooP",
+                                                    "ooM"
                                                 };
     }
 
@@ -661,7 +667,7 @@ namespace RiggVar.Rgg
             o.ArrayIndex = -1;
 
             o = RecordList[Rigg.yavRFC0D0];
-            o.ComboText = "rF[1] Kraft D0C0"; // Kraft in Kiel-Stab rF.C0D0 = rF[1]
+            o.ComboText = "rF[1] Kraft D0C0"; // Kraft in Kiel-Stab rF.D0C0 = rF[1]
             o.Text = "Kraft im Stab D0C0 [N]";
             o.ComboIndex = -1;
             o.ArrayIndex = -1;

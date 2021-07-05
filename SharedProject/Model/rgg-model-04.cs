@@ -6,7 +6,7 @@ namespace RiggVar.Rgg
     public class TMast : TGetriebeFS
     {
         private double l0; // in mm
-        private float[] f = new float[Rigg.TLineDataR100]; // Durchbiegungswerte in mm
+        private float[] f = new float[Rigg.MastLineDataCount]; // Durchbiegungswerte in mm
 
         private int FLineCountM = 100;
         private TControllerTyp FControllerTyp = TControllerTyp.ctDruck;

@@ -427,7 +427,7 @@ namespace RiggVar.Rgg
                         GSB.Controller.Ist = this[TsbName.Controller];
                         break;
                     case TFederParam.fpWinkel:
-                        GSB.Winkel.Ist = this[TsbName.Winkel]; // * 180 / Math.PI; // ###
+                        GSB.Winkel.Ist = this[TsbName.Winkel];
                         break;
                     case TFederParam.fpVorstag:
                         GSB.Vorstag.Ist = this[TsbName.Vorstag];
@@ -448,7 +448,7 @@ namespace RiggVar.Rgg
                         GSB.SalingL.Ist = this[TsbName.SalingL];
                         break;
                     case TFederParam.fpSalingW:
-                        GSB.SalingW.Ist = Math.Atan2(this[TsbName.SalingH] * 2, this[TsbName.SalingA]); // * 180 / Math.PI; // ### RadToDeg ?
+                        GSB.SalingW.Ist = Math.Atan2(this[TsbName.SalingH] * 2, this[TsbName.SalingA]);
                         break;
                     case TFederParam.fpMastfallF0C:
                         GSB.MastfallF0C.Ist = rP.F0.Distance(rP.C);
@@ -574,19 +574,18 @@ namespace RiggVar.Rgg
             temp2 = Math.Cos(beta);
             temp3 = Math.Sin(Math.PI / 2 - beta);
             temp4 = Math.Sin(beta);
-            for (int j = 0; j <= BogenMax; j++)
+            for (int j = 0; j < Rigg.BogenCount; j++)
             {
-                temp5 = 100 / BogenMax * j;
+                temp5 = 100 / Rigg.BogenMax * j;
                 k = Convert.ToInt32(Math.Round(temp5));
-                tempL = j * L / BogenMax;
+                tempL = j * L / Rigg.BogenMax;
                 FMastKurve[j].X = rP.D0.X - tempL * temp1 + f[k] * temp2;
                 FMastKurve[j].Y = 0;
                 FMastKurve[j].Z = rP.D0.Z + tempL * temp3 + f[k] * temp4;
             }
         }
 
-        public const int BogenMax = 50;
-        private readonly TRealPoint[] FMastKurve = new TRealPoint[BogenMax + 1];
+        private readonly TRealPoint[] FMastKurve = new TRealPoint[Rigg.BogenCount];
 
         public TRealPoint[] MastKurve
         {

@@ -61,7 +61,7 @@ namespace RiggVar.Rgg
         public TSchnittKK SKK;
         public TTrimmTab TrimmTab;
         public TRggFA GSB = new TRggFA();
-        public TIntPoint[] iP = new TIntPoint[Rigg.TRiggPointHigh];
+        public TIntPoint[] iP = new TIntPoint[Rigg.TRiggPointCount];
         public TRiggPoints rP = new TRiggPoints();
 
         public TGetriebe()
@@ -162,8 +162,8 @@ namespace RiggVar.Rgg
         private void GetDefaultData()
         {
             // Initialisierung aller Integerwerte und der TrimmTabelle;
-            // nachfolgend muß IntGliederToReal und Reset aufgerufen werden, um die
-            // Gleitkommawerte zu initialiseieren.
+            // nachfolgend muß IntGliederToReal und Reset aufgerufen werden,
+            // um die Gleitkommawerte zu initialisieren.
 
             // Längen im Rigg in mm
             FiControllerAnschlag = 50;

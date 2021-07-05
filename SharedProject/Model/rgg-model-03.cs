@@ -519,15 +519,15 @@ namespace RiggVar.Rgg
         }
         public TRealPoint[] Koppelkurve()
         {
-            // Koppelkurve Viergelenk P0, P, D, D0
-            // Wanten2d neu bereitgestellt,
-            // sonst interne Felder nicht verändert!
+            // Koppelkurve im Viergelenk P0, P, D, D0
+            // Wanten2D neu bereitgestellt,
+            // sonst interne Felder nicht verändert.
 
             bool svar = false;
             double phiA, phiE, phiM, psiM, WinkelStep;
             TRealPoint ooTemp;
             TRiggPoints oooTemp = new TRiggPoints();
-            TRealPoint[] result = new TRealPoint[Rigg.TLineDataR100];
+            TRealPoint[] result = new TRealPoint[Rigg.KoppelCount];
 
             rP.CopyTo(oooTemp); // aktuelle Koordinaten sichern
             Wanten3dTo2d();

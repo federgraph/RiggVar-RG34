@@ -36,7 +36,7 @@ namespace RiggVar.Rgg
         public TRiggRods rF = new TRiggRods(); // Stabkräfte 3d in N
         public TRiggRods rEA = new TRiggRods(); // EA Werte 3d in KN
         public TRiggPoints rPe = new TRiggPoints(); // Koordinaten entlastet 3d in mm
-        public int[] iPe = new int[Rigg.TRiggPointHigh]; // Integerkoordinaten entlastet 3d in mm
+        public int[] iPe = new int[Rigg.TRiggPointCount]; // Integerkoordinaten entlastet 3d in mm
 
         // Daten für RegelGrafik
         public double Anfang, Antrieb, Ende;
