@@ -9,7 +9,7 @@
   <Import Project="..\SharedProject\SharedProject.projitems" Label="Shared" />
 
   <ItemGroup>
-    <PackageReference Include="HelixToolkit.SharpDX.Core.Wpf" Version="2.20.0" />
+    <PackageReference Include="HelixToolkit.SharpDX.Core.Wpf" Version="2.21.1" />
   </ItemGroup>
 
 </Project>
