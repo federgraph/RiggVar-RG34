@@ -27,10 +27,7 @@ namespace WpfAppRG34
             DataContext = mvm;
 
             Controller = TMain.RggController;
-            Init();
-        }
-        private void Init()
-        {
+
             _ = new InputProcessorTouch(this, BtnFrame.TouchBarTop, 1);
             _ = new InputProcessorTouch(this, BtnFrame.TouchBarBottom, 2);
             _ = new InputProcessorTouch(this, BtnFrame.TouchBarLeft, 3, true);
@@ -43,20 +40,20 @@ namespace WpfAppRG34
             BtnFrame.RggDraw = this;
 
             MouseWheel += MainWindow_MouseWheel;
-            CreateHelixViewport();
+            HelixViewport = CreateHelixViewport();
             InitHelixViewport();
             InitHelixViewportGestures();
         }
 
-        private void CreateHelixViewport()
+        private RggViewport3DX CreateHelixViewport()
         {
-            HelixViewport = new RggViewport3DX();
-            HelixHost.Children.Add(HelixViewport);
+            RggViewport3DX hvp = new RggViewport3DX();
+            HelixHost.Children.Add(hvp);
 
-            HelixViewport.Camera = mvm.Camera;
-            HelixViewport.EffectsManager = mvm.EffectsManager;
+            hvp.Camera = mvm.Camera;
+            hvp.EffectsManager = mvm.EffectsManager;
 
-            HelixViewport.FixedRotationPointEnabled = true;
+            hvp.FixedRotationPointEnabled = true;
             Binding binding1 = new Binding
             {
                 Source = mvm,
@@ -64,10 +61,10 @@ namespace WpfAppRG34
                 Mode = BindingMode.OneWay,
                 UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
             };
-            _ = BindingOperations.SetBinding(HelixViewport, Viewport3DX.FixedRotationPointProperty, binding1);
+            _ = BindingOperations.SetBinding(hvp, Viewport3DX.FixedRotationPointProperty, binding1);
 
             Element3DPresenter ep = new Element3DPresenter();
-            HelixViewport.Items.Add(ep);
+            hvp.Items.Add(ep);
             Binding binding2 = new Binding
             {
                 Source = mvm,
@@ -82,14 +79,16 @@ namespace WpfAppRG34
                 Direction = mvm.LightDirection1,
                 Color = Colors.White
             };
-            HelixViewport.Items.Add(dl1);
+            hvp.Items.Add(dl1);
 
             DirectionalLight3D dl2 = new DirectionalLight3D
             {
                 Direction = mvm.LightDirection2,
                 Color = Colors.White
             };
-            HelixViewport.Items.Add(dl2);
+            hvp.Items.Add(dl2);
+
+            return hvp;
         }
 
         private void InitHelixViewport()

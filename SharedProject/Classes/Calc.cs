@@ -504,7 +504,7 @@ namespace RiggVar.Rgg
         public double Y;
         public double Z;
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             return obj is TRealPoint other && this.Equals(other);
         }

@@ -11,7 +11,7 @@ namespace RiggVar.Rgg
         public bool WantLogo = true;
 
         [DataMember]
-        public string Name;
+        public string Name = "";
 
         [DataMember]
         public RumpfKoord RK;

@@ -11,12 +11,12 @@ namespace RiggVar.Rgg
 
     public class RggDataSerializer
     {
-        public static RggData newRggData;
+        public static RggData? newRggData;
 
         public bool WantLogoData;
         public bool WantJson = true;
         public bool WantUtf8 = true;
-        public string ErrorMsg;
+        public string ErrorMsg = "";
         public bool HasError;
 
         public string Data => WantLogoData ? LogoData : TestData;
@@ -50,9 +50,12 @@ namespace RiggVar.Rgg
         public string Test()
         {
             string s0 = LogoData;
-            RggData o1 = Read(s0);
+            RggData? o1 = Read(s0);
+            if (o1 == null) { return "failed: cannot read s0"; }
+
             string s1 = Write(o1);
-            RggData o2 = Read(s1);
+            RggData? o2 = Read(s1);
+            if (o2 == null) { return "failed: cannot read s1"; }
             string s2 = Write(o2);
 
             if (HasError)
@@ -85,7 +88,7 @@ namespace RiggVar.Rgg
             }
         }
 
-        public RggData Read(string s)
+        public RggData? Read(string s)
         {
             if (WantJson)
             {
@@ -141,11 +144,11 @@ namespace RiggVar.Rgg
             return s;
         }
 
-        public RggData ReadJson(string json)
+        public RggData? ReadJson(string json)
         {
             HasError = false;
 
-            RggData rd;
+            RggData? rd;
 
             if (string.IsNullOrEmpty(json))
             {
@@ -226,11 +229,11 @@ namespace RiggVar.Rgg
         }
 
 
-        public RggData ReadXml(string xml)
+        public RggData? ReadXml(string xml)
         {
             HasError = false;
 
-            RggData rd;
+            RggData? rd;
 
             if (string.IsNullOrEmpty(xml))
             {

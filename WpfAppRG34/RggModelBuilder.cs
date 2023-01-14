@@ -100,7 +100,7 @@ namespace RiggVar.Rgg
 
         private class Panel
         {
-            public Vector3D[] Points { get; set; }
+            public Vector3D[] Points { get; set; } = new Vector3D[0];
             public int TriangleIndex { get; set; }
         }
 

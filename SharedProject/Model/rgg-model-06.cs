@@ -11,10 +11,11 @@ namespace RiggVar.Rgg
         }
         public override void Assign(object source)
         {
+            if (source == null) { return; }
             if (source is TRigg)
             {
                 TRggDocument Document = new TRggDocument();
-                (source as TRigg).GetDocument(Document);
+                ((TRigg)source).GetDocument(Document);
                 SetDocument(Document);
                 base.Assign(source);
             }

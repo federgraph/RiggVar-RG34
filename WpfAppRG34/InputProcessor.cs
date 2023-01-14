@@ -9,8 +9,8 @@ namespace RiggVar.Rgg
         protected int touchBarID;
         protected bool isHorizontal = true;
 
-        protected IRggDraw controller;
-        protected UIElement uie;
+        protected IRggDraw? controller;
+        protected UIElement? uie;
 
         public InputProcessor(IRggDraw c, UIElement e)
         {
@@ -34,6 +34,7 @@ namespace RiggVar.Rgg
 
         private void PaintBox_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            if (uie == null) { return; }
             _ = uie.CaptureMouse();
             Point p = e.GetPosition(uie);
             if (isHorizontal)
@@ -50,6 +51,7 @@ namespace RiggVar.Rgg
 
         private void PaintBox_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
+            if (uie == null) { return; }
             _ = uie.CaptureMouse();
             Point p = e.GetPosition(uie);
             if (isHorizontal)
@@ -76,6 +78,7 @@ namespace RiggVar.Rgg
 
         private void PaintBox_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
+            if (uie == null) { return; }
             down = false;
             OnPointerUp();
             e.Handled = true;

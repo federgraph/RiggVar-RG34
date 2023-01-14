@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections;
+using System.Collections.Generic;
 
 namespace RiggVar.Rgg
 {
@@ -11,20 +11,19 @@ namespace RiggVar.Rgg
         }
     }
 
-    internal class TStringItem
+    public class TStringItem
     {
         public string FString;
-        public object FObject;
+        public object? FObject;
 
-        public TStringItem(string AString, object AObject)
+        public TStringItem(string AString, object? AObject)
         {
             FString = AString;
             FObject = AObject;
         }
     }
 
-    public delegate int TStringListSortCompare(TStringList AList, int AIndex1,
-        int AIndex2);
+    public delegate int TStringListSortCompare(TStringList AList, int AIndex1, int AIndex2);
 
     public enum TDuplicates
     {
@@ -33,7 +32,7 @@ namespace RiggVar.Rgg
 
     public class TStringList : TStrings
     {
-        private ArrayList FList = new ArrayList();
+        private List<TStringItem> FList = new List<TStringItem>();
         private bool FSorted;
         private TDuplicates FDuplicates;
         private bool FCaseSensitive;
@@ -43,7 +42,7 @@ namespace RiggVar.Rgg
 
         private void ExchangeItems(int AIndex1, int AIndex2)
         {
-            Object temp = FList[AIndex1];
+            TStringItem temp = FList[AIndex1];
             FList[AIndex1] = FList[AIndex2];
             FList[AIndex2] = temp;
         }
@@ -121,13 +120,13 @@ namespace RiggVar.Rgg
         protected virtual void Changed()
         {
             if (FUpdateCount == 0 && OnChange != null)
-                OnChange(this, null);
+                OnChange(this, new EventArgs());
         }
 
         protected virtual void Changing()
         {
             if (FUpdateCount == 0 && OnChanging != null)
-                OnChanging(this, null);
+                OnChanging(this, new EventArgs());
         }
 
         protected override string Get(int AIndex)
@@ -148,7 +147,7 @@ namespace RiggVar.Rgg
             return FList.Count;
         }
 
-        protected override object GetObject(int AIndex)
+        protected override object? GetObject(int AIndex)
         {
             if (AIndex < 0 || AIndex >= FList.Count)
                 Error(SListIndexError, AIndex);
@@ -169,7 +168,7 @@ namespace RiggVar.Rgg
             Changed();
         }
 
-        protected override void PutObject(int AIndex, object AObject)
+        protected override void PutObject(int AIndex, object? AObject)
         {
             if (AIndex < 0 || AIndex >= FList.Count)
                 Error(SListIndexError, AIndex);
@@ -197,7 +196,7 @@ namespace RiggVar.Rgg
             return String.Compare(s1, s2, !FCaseSensitive);
         }
 
-        protected virtual void InsertItem(int AIndex, string AValue, object AObject)
+        protected virtual void InsertItem(int AIndex, string AValue, object? AObject)
         {
             Changing();
 
@@ -226,15 +225,15 @@ namespace RiggVar.Rgg
 
         public override void CopyTo(Array a, int i)
         {
-            FList.CopyTo(a, i);
+            FList.CopyTo((TStringItem[])a, i);
         }
 
-        public override int Add(String AValue)
+        public override int Add(string AValue)
         {
             return AddObject(AValue, null);
         }
 
-        public override int AddObject(string AValue, object AObject)
+        public override int AddObject(string AValue, object? AObject)
         {
             int result;
             if (!FSorted)
@@ -329,7 +328,7 @@ namespace RiggVar.Rgg
             InsertObject(AIndex, AValue, null);
         }
 
-        public override void InsertObject(int AIndex, string AValue, object AObject)
+        public override void InsertObject(int AIndex, string AValue, object? AObject)
         {
             if (Sorted)
                 Error(SSortedListError, 0);
@@ -380,7 +379,7 @@ namespace RiggVar.Rgg
             set => FCaseSensitive = value;
         }
 
-        public event EventHandler OnChange;
-        public event EventHandler OnChanging;
+        public event EventHandler? OnChange;
+        public event EventHandler? OnChanging;
     }
 }

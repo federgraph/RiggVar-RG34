@@ -6,8 +6,8 @@ namespace RiggVar.Rgg
     public class TEnumSet
     {
         private int count = 0;
-        private Type enumType;
-        private bool[] b;
+        private Type? enumType;
+        private bool[] b = new bool[0];
 
         public TEnumSet(Type t)
         {
@@ -22,7 +22,7 @@ namespace RiggVar.Rgg
         {
             if (source is TEnumSet)
             {
-                TEnumSet f = source as TEnumSet;
+                TEnumSet f = (TEnumSet)source;
                 count = f.count;
                 enumType = f.enumType;
                 b = new bool[count];

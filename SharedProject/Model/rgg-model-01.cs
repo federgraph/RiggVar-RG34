@@ -247,8 +247,8 @@ namespace RiggVar.Rgg
     {
         public int ComboIndex;
         public int ArrayIndex;
-        public string ComboText;
-        public string Text;
+        public string ComboText = "";
+        public string Text = "";
     }
 
     public class Rigg
@@ -869,7 +869,26 @@ namespace RiggVar.Rgg
                 };
                 Add(r);
             }
-            public new TYAchseRecord this[int i] => i < Count ? base[i] : null;
+            public new TYAchseRecord this[int i]
+            {
+                get
+                {
+                    if (i < Count)
+                    {
+                        return base[i];
+                    }
+                    else
+                    {
+                        return new TYAchseRecord
+                        {
+                            ComboText = "impossible",
+                            Text = "should never happen",
+                            ComboIndex = -1,
+                            ArrayIndex = -1
+                        };
+                    }
+                }
+            }
         }
 
     }

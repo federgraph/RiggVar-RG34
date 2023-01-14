@@ -51,7 +51,7 @@ namespace RiggVar.Rgg
         }
     }
 
-    public abstract class TStrings : Object, ICloneable, IEnumerable, ICollection
+    public abstract class TStrings : ICloneable, IEnumerable, ICollection
     {
         private TStringsDefined FDefined;
         private char FDelimiter = ',';
@@ -143,7 +143,7 @@ namespace RiggVar.Rgg
             try
             {
                 Clear();
-                String s;
+                String? s;
                 while ((s = AReader.ReadLine()) != null)
                     Add(s);
             }
@@ -362,7 +362,7 @@ namespace RiggVar.Rgg
 
         protected abstract int GetCount();
 
-        protected virtual object GetObject(int Index)
+        protected virtual object? GetObject(int Index)
         {
             return null;
         }
@@ -382,12 +382,12 @@ namespace RiggVar.Rgg
 
         protected virtual void Put(int AIndex, string AValue)
         {
-            object dummy = GetObject(AIndex);
+            object? dummy = GetObject(AIndex);
             Delete(AIndex);
             InsertObject(AIndex, AValue, dummy);
         }
 
-        protected virtual void PutObject(int AIndex, object AObject)
+        protected virtual void PutObject(int AIndex, object? AObject)
         {
         }
 
@@ -472,7 +472,7 @@ namespace RiggVar.Rgg
             Insert(result, s);
             return result;
         }
-        public virtual int AddObject(string s, object AObject)
+        public virtual int AddObject(string s, object? AObject)
         {
             int result = Add(s);
             PutObject(result, AObject);
@@ -534,9 +534,10 @@ namespace RiggVar.Rgg
                 SetUpdateState(false);
         }
 
-        public override bool Equals(object o)
+        public override bool Equals(object? o)
         {
-            return o is TStrings && Equals(o as TStrings);
+            if (o == null) return false;
+            return o is TStrings strings && Equals(strings);
         }
 
         public bool Equals(TStrings AStrings)
@@ -582,7 +583,7 @@ namespace RiggVar.Rgg
             try
             {
                 String dummystr = Strings(AIndex1);
-                object dummyobj = Objects(AIndex1);
+                object? dummyobj = Objects(AIndex1);
                 Strings(AIndex1, Strings(AIndex2));
                 Objects(AIndex1, Objects(AIndex2));
                 Strings(AIndex2, dummystr);
@@ -632,7 +633,7 @@ namespace RiggVar.Rgg
 
         public abstract void Insert(int AIndex, string AValue);
 
-        public virtual void InsertObject(int AIndex, string AValue, object AObject)
+        public virtual void InsertObject(int AIndex, string AValue, object? AObject)
         {
             Insert(AIndex, AValue);
             PutObject(AIndex, AObject);
@@ -673,7 +674,7 @@ namespace RiggVar.Rgg
                 try
                 {
                     string dummystr = Get(CurIndex);
-                    object dummyobj = GetObject(CurIndex);
+                    object? dummyobj = GetObject(CurIndex);
                     Delete(CurIndex);
                     InsertObject(NewIndex, dummystr, dummyobj);
                 }
@@ -741,12 +742,12 @@ namespace RiggVar.Rgg
             return GetName(AIndex);
         }
 
-        public object Objects(int AIndex)
+        public object? Objects(int AIndex)
         {
             return GetObject(AIndex);
         }
 
-        public void Objects(int AIndex, object AValue)
+        public void Objects(int AIndex, object? AValue)
         {
             PutObject(AIndex, AValue);
         }

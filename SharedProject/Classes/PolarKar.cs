@@ -205,15 +205,18 @@ namespace RiggVar.Rgg
 
             return c;
         }
-        public void GetAngle2(object Sender, ref double wp, ref double wt, ref double wg)
+        public void GetAngle2(object? Sender, ref double wp, ref double wt, ref double wg)
         {
+            if (Sender == null) return;
+            if (!(Sender is TPolarKar)) return;
+
             double tempcos, tempsin;
             Vec3 ux, uy, uz, tempVec, tempY, tempZ;
             TMatrix4x4 tempmat;
             bool Theta90;
             tempmat = new TMatrix4x4();
 
-            tempmat.CopyFrom((Sender as TPolarKar).mat);
+            tempmat.CopyFrom(((TPolarKar)Sender).mat);
             ux = new Vec3();
             uy = new Vec3();
             uz = new Vec3();

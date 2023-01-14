@@ -521,7 +521,7 @@ namespace RiggVar.Rgg
 
         // Root Attributes
 
-        public string Name;
+        public string Name = "";
 
         public int Faktor;
         public int OffsetX;
@@ -630,8 +630,13 @@ namespace RiggVar.Rgg
         {
             Reset1();
         }
-        public void Assign(TRggData fd)
+        public void Assign(TRggData? fd)
         {
+            if (fd == null)
+            {
+                return;
+            }
+
             Faktor = fd.Faktor;
             OffsetX = fd.OffsetX;
             OffsetZ = fd.OffsetZ;
@@ -771,7 +776,7 @@ namespace RiggVar.Rgg
             WantName = false;
             WantSpace = true;
 
-            DB.Trimm0.Save(AML);
+            DB.Trimm0?.Save(AML);
 
             WantAll = false;
             WantName = true;
@@ -779,32 +784,32 @@ namespace RiggVar.Rgg
 
             _ = AML.Add(string.Empty);
             _ = AML.Add("//Trimm1");
-            DB.Trimm1.Save(AML);
+            DB.Trimm1?.Save(AML);
 
             _ = AML.Add("");
             _ = AML.Add("//Trimm2");
-            DB.Trimm2.Save(AML);
+            DB.Trimm2?.Save(AML);
 
             _ = AML.Add("");
             _ = AML.Add("//Trimm3");
-            DB.Trimm3.Save(AML);
+            DB.Trimm3?.Save(AML);
 
             _ = AML.Add("");
             _ = AML.Add("//Trimm4");
-            DB.Trimm4.Save(AML);
+            DB.Trimm4?.Save(AML);
 
             _ = AML.Add("");
             _ = AML.Add("//Trimm5");
-            DB.Trimm5.Save(AML);
+            DB.Trimm5?.Save(AML);
 
             _ = AML.Add("");
             _ = AML.Add("//Trimm6");
-            DB.Trimm6.Save(AML);
+            DB.Trimm6?.Save(AML);
         }
         public void ReadTrimmFile(TRggTrimmDB DB, TStrings AML)
         {
             int j;
-            TRggData fd = new TRggData();
+            TRggData? fd = new TRggData();
             TStringList SL = new TStringList();
 
             string s;
@@ -850,17 +855,23 @@ namespace RiggVar.Rgg
                     {
                         // Trimm 0
                         fd = DB.RggData;
-                        fd.Reset();
-                        fd.LoadTrimmItem(SL);
-                        DB.Trimm0.Assign(fd);
+                        if (fd != null)
+                        {
+                            fd.Reset();
+                            fd.LoadTrimmItem(SL);
+                            DB.Trimm0?.Assign(fd);
+                        }
                     }
                     else if (c > 1)
                     {
                         // Trimm 1 - 6
                         fd = DB.GetTrimmItem(c - 1);
-                        fd.Reset();
-                        fd.Assign(DB.Trimm0);
-                        fd.LoadTrimmItem(SL);
+                        if (fd != null)
+                        {
+                            fd.Reset();
+                            fd.Assign(DB.Trimm0);
+                            fd.LoadTrimmItem(SL);
+                        }
                     }
                     SL.Clear();
 
@@ -874,8 +885,11 @@ namespace RiggVar.Rgg
 
             // process current(last) trimm
             fd = DB.GetTrimmItem(c);
-            fd.Assign(DB.Trimm0);
-            fd.LoadTrimmItem(SL);
+            if (fd != null)
+            {
+                fd.Assign(DB.Trimm0);
+                fd.LoadTrimmItem(SL);
+            }
         }
 
         public void SaveTrimmItem(TStrings AML)

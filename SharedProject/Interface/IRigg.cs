@@ -36,7 +36,7 @@
 
         public bool RiggLED { get; set; }
         public bool GrauZeichnen { get; set; }
-        public string StatusText { get; set; }
+        public string StatusText { get; set; } = "";
 
         public int CounterG { get; set; }
         public double TempValue1 { get; set; }

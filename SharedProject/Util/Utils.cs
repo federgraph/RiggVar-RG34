@@ -6,8 +6,8 @@ namespace RiggVar.Rgg
 
     public class TTokenParser
     {
-        public string sToken;
-        public string sRest;
+        public string sToken = "";
+        public string sRest = "";
         public void NextToken()
         {
             sRest = Utils.Cut(".", sRest, ref sToken);

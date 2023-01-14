@@ -255,7 +255,7 @@
                 case TsbName.SalingL: return SalingL;
                 case TsbName.VorstagOS: return VorstagOS;
                 case TsbName.WPowerOS: return WPowerOS;
-                default: return null;
+                default: return Dummy;
             }
         }
         public TRggSB Find(TFederParam Value)

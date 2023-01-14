@@ -5,9 +5,9 @@ namespace RiggVar.FB
     public class ActionRecord
     {
         public int ID;
-        public string Name;
-        public string ShortCaption;
-        public string LongCaption;
+        public string? Name;
+        public string? ShortCaption;
+        public string? LongCaption;
         public override string ToString()
         {
             return string.Format("{0}: {1} = {2} = {3}", ID, Name, ShortCaption, LongCaption);

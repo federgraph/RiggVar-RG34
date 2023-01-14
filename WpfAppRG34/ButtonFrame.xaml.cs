@@ -33,7 +33,7 @@ namespace RiggVar.Rgg
         private CornerButton Btn15;
         private CornerButton Btn16;
 
-        internal IRggDraw RggDraw;
+        internal IRggDraw? RggDraw;
 
         public ButtonFrame()
         {
@@ -42,11 +42,6 @@ namespace RiggVar.Rgg
             BtnRectStyle = BtnRect0.Style;
             BtnTextStyle = BtnText0.Style;
 
-            InitButtons();
-        }
-
-        private void InitButtons()
-        {
             Brush cl;
 
             // top left
@@ -166,8 +161,9 @@ namespace RiggVar.Rgg
 
         private void RectangleMouseEnter(object sender, MouseEventArgs e)
         {
-            Rectangle r = sender as Rectangle;
-            if (CornerBtnDict.TryGetValue(r, out CornerButton cb))
+            Rectangle? r = sender as Rectangle;
+            if (r == null) { return; }
+            if (CornerBtnDict.TryGetValue(r, out CornerButton? cb))
             {
                 RggDraw?.HandleUpdateHint(cb.ActionID);
             }
@@ -175,8 +171,9 @@ namespace RiggVar.Rgg
 
         private void RectangleBtnClick(object sender, MouseButtonEventArgs e)
         {
-            Rectangle r = sender as Rectangle;
-            if (CornerBtnDict.TryGetValue(r, out CornerButton cb))
+            Rectangle? r = sender as Rectangle;
+            if (r == null) { return; }
+            if (CornerBtnDict.TryGetValue(r, out CornerButton? cb))
             {
                 RggDraw?.HandleBtnClick(cb.ActionID);
             }

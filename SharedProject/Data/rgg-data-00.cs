@@ -32,6 +32,7 @@ namespace RiggVar.Rgg
 
         public TRggDocument()
         {
+            Signature = RggDocSignature;
         }
 
         public const double EModulStahl = 210E3; // N/mm^2

@@ -2,22 +2,22 @@
 {
     public abstract class TRggTrimmDB
     {
-        public TRggData RggData;
+        public TRggData? RggData;
 
-        public TRggData Trimm0;
-        public TRggData Trimm1;
-        public TRggData Trimm2;
-        public TRggData Trimm3;
-        public TRggData Trimm4;
-        public TRggData Trimm5;
-        public TRggData Trimm6;
-        public TRggData Trimm7;
-        public TRggData Trimm8;
+        public TRggData? Trimm0;
+        public TRggData? Trimm1;
+        public TRggData? Trimm2;
+        public TRggData? Trimm3;
+        public TRggData? Trimm4;
+        public TRggData? Trimm5;
+        public TRggData? Trimm6;
+        public TRggData? Trimm7;
+        public TRggData? Trimm8;
 
-        public TRggData Trimm420 => Trimm7;
-        public TRggData TrimmLogo => Trimm8;
+        public TRggData? Trimm420 => Trimm7;
+        public TRggData? TrimmLogo => Trimm8;
 
-        public TRggData GetTrimmItem(int i)
+        public TRggData? GetTrimmItem(int i)
         {
             switch (i)
             {

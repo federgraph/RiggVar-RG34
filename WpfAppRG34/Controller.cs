@@ -11,7 +11,7 @@ namespace RiggVar.Rgg
             controller = this;
         }
 
-        private static TMain controller;
+        private static TMain? controller;
         public static TMain Controller
         {
             get
@@ -24,7 +24,7 @@ namespace RiggVar.Rgg
             }
         }
 
-        private static RotaVarController rggController;
+        private static RotaVarController? rggController;
         public static RotaVarController RggController
         {
             get
@@ -49,29 +49,32 @@ namespace RiggVar.Rgg
 
     public class RotaVarController
     {
-        internal IRggDraw OnChange;
+        internal IRggDraw? OnChange;
 
         internal TRigg rigg;
 
         internal TGetriebeGraphData GetriebeGraph { get; set; }
 
-        private void InitGetriebeGraph()
+        private TGetriebeGraphData InitGetriebeGraph()
         {
-            GetriebeGraph = new TGetriebeGraphData();
-            GetriebeGraph.ViewProps.Zoom = 0.05;
-            GetriebeGraph.ViewProps.FixPoint = TRiggPoint.ooD0;
-            GetriebeGraph.ViewProps.Viewpoint = TViewPoint.vp3D;
+            TGetriebeGraphData ggd = new TGetriebeGraphData();
+            ggd.ViewProps.Zoom = 0.05;
+            ggd.ViewProps.FixPoint = TRiggPoint.ooD0;
+            ggd.ViewProps.Viewpoint = TViewPoint.vp3D;
+            return ggd;
         }
-        private void InitRigg()
+        private TRigg InitRigg()
         {
-            rigg = TRggModel.Instance.rigg;
-            rigg.ControllerTyp = TControllerTyp.ctOhne;
+            TRigg rg = TRggModel.Instance.rigg;
+            rg.ControllerTyp = TControllerTyp.ctOhne;
 
-            GetriebeGraph.ModelOutput.ModelStatus.SalingTyp = rigg.SalingTyp;
-            GetriebeGraph.ModelOutput.ModelStatus.ControllerTyp = rigg.ControllerTyp;
-            GetriebeGraph.ModelOutput.Koordinaten = rigg.rP;
-            GetriebeGraph.ModelOutput.MastKurve.Data = rigg.MastKurve;
-            GetriebeGraph.ViewProps.WanteGestrichelt = !rigg.GetriebeOK;
+            GetriebeGraph.ModelOutput.ModelStatus.SalingTyp = rg.SalingTyp;
+            GetriebeGraph.ModelOutput.ModelStatus.ControllerTyp = rg.ControllerTyp;
+            GetriebeGraph.ModelOutput.Koordinaten = rg.rP;
+            GetriebeGraph.ModelOutput.MastKurve.Data = rg.MastKurve;
+            GetriebeGraph.ViewProps.WanteGestrichelt = !rg.GetriebeOK;
+
+            return rg;
         }
         public void Change()
         {
@@ -181,8 +184,13 @@ namespace RiggVar.Rgg
 
         public RotaVarController()
         {
-            InitGetriebeGraph();
-            InitRigg();
+            GetriebeGraph = InitGetriebeGraph();
+            rigg = InitRigg();
+
+            TrimmText = "";
+            MinValCaption = "";
+            MaxValCaption = "";
+            IstValCaption = "";
 
             FactArray = rigg.GSB;
             rigg.InitFactArray(WantLogoData);
@@ -325,7 +333,7 @@ namespace RiggVar.Rgg
         public void RemoteRigg(string eventType, string eventData)
         {
             RggDataSerializer j = new RggDataSerializer();
-            RggData rd;
+            RggData? rd;
             if (eventType == "xml")
             {
                 rd = j.ReadXml(eventData);
@@ -338,6 +346,8 @@ namespace RiggVar.Rgg
             {
                 return;
             }
+
+            if (rd == null) { return; }
 
             TRggDocument doc = new TRggDocument();
             doc.GetRemoteDoc(rd);
