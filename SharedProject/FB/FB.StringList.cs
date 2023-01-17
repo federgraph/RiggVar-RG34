@@ -147,7 +147,7 @@ namespace RiggVar.Rgg
                 SL.RemoveAt(i);
         }
 
-        public char NameValueSeparator { get; set; } = ';';
+        public char NameValueSeparator { get; set; } = '=';
 
         public string Names(int AIndex)
         {
