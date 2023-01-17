@@ -8,7 +8,7 @@ namespace RiggVar.Rgg
     public interface TStrings
     {
         void Clear();
-        int Add(string value);
+        void Add(string value);
         void Delete(int AIndex);
 
         string GetString(int index);
@@ -39,10 +39,9 @@ namespace RiggVar.Rgg
             SL.Clear();
         }
 
-        public int Add(string value)
+        public void Add(string value)
         {
             SL.Add(value);
-            return Count - 1;
         }
 
         public string GetString(int index)
@@ -139,12 +138,19 @@ namespace RiggVar.Rgg
             if (AValue != string.Empty)
             {
                 if (i < 0)
-                    i = Add(string.Empty);
+                {
+                    Add(string.Empty);
+                    i = Count - 1;
+                }
                 SetString(i, AName + NameValueSeparator + AValue);
             }
             else
+            {
                 if (i >= 0)
-                SL.RemoveAt(i);
+                {
+                    SL.RemoveAt(i);
+                }
+            }
         }
 
         public char NameValueSeparator { get; set; } = '=';

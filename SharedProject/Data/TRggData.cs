@@ -745,31 +745,31 @@ namespace RiggVar.Rgg
 
             if (WantPascal)
             {
-                _ = AML.Add(string.Format("DOCTYPE := {0};", DoctypeTrimmFile));
-                _ = AML.Add(string.Format("Namespace := {0} ;", NamespaceTrimmFile));
-                _ = AML.Add("Version := 1;");
+                AML.Add(string.Format("DOCTYPE := {0};", DoctypeTrimmFile));
+                AML.Add(string.Format("Namespace := {0} ;", NamespaceTrimmFile));
+                AML.Add("Version := 1;");
             }
             else if (WantJava)
             {
-                _ = AML.Add(string.Format("DOCTYPE = {0};", DoctypeTrimmFile));
-                _ = AML.Add(string.Format("Namespace = {0} ;", NamespaceTrimmFile));
-                _ = AML.Add("Version = 1;");
+                AML.Add(string.Format("DOCTYPE = {0};", DoctypeTrimmFile));
+                AML.Add(string.Format("Namespace = {0} ;", NamespaceTrimmFile));
+                AML.Add("Version = 1;");
             }
             else
             {
-                _ = AML.Add(string.Format("DOCTYPE={0}", DoctypeTrimmFile));
-                _ = AML.Add(string.Format("Namespace={0}", NamespaceTrimmFile));
-                _ = AML.Add("Version=1");
+                AML.Add(string.Format("DOCTYPE={0}", DoctypeTrimmFile));
+                AML.Add(string.Format("Namespace={0}", NamespaceTrimmFile));
+                AML.Add("Version=1");
             }
 
             if (WantSpace)
             {
-                _ = AML.Add(string.Empty);
+                AML.Add(string.Empty);
             }
 
             if (WantComment)
             {
-                _ = AML.Add("//Basis-Trimm (Trimm 0)");
+                AML.Add("//Basis-Trimm (Trimm 0)");
             }
 
             WantAll = true;
@@ -782,28 +782,28 @@ namespace RiggVar.Rgg
             WantName = true;
             WantSpace = false;
 
-            _ = AML.Add(string.Empty);
-            _ = AML.Add("//Trimm1");
+            AML.Add(string.Empty);
+            AML.Add("//Trimm1");
             DB.Trimm1?.Save(AML);
 
-            _ = AML.Add("");
-            _ = AML.Add("//Trimm2");
+            AML.Add("");
+            AML.Add("//Trimm2");
             DB.Trimm2?.Save(AML);
 
-            _ = AML.Add("");
-            _ = AML.Add("//Trimm3");
+            AML.Add("");
+            AML.Add("//Trimm3");
             DB.Trimm3?.Save(AML);
 
-            _ = AML.Add("");
-            _ = AML.Add("//Trimm4");
+            AML.Add("");
+            AML.Add("//Trimm4");
             DB.Trimm4?.Save(AML);
 
-            _ = AML.Add("");
-            _ = AML.Add("//Trimm5");
+            AML.Add("");
+            AML.Add("//Trimm5");
             DB.Trimm5?.Save(AML);
 
-            _ = AML.Add("");
-            _ = AML.Add("//Trimm6");
+            AML.Add("");
+            AML.Add("//Trimm6");
             DB.Trimm6?.Save(AML);
         }
         public void ReadTrimmFile(TRggTrimmDB DB, TStrings AML)
@@ -1126,26 +1126,26 @@ namespace RiggVar.Rgg
 
         public void WriteJson(TStrings AML)
         {
-            _ = AML.Add(string.Format(CultureInfo.InvariantCulture, "{{'Name':'{0}','Faktor':{1},'OffsetX':{2},'OffsetZ':{3},", Name, Faktor, OffsetX, OffsetZ));
+            AML.Add(string.Format(CultureInfo.InvariantCulture, "{{'Name':'{0}','Faktor':{1},'OffsetX':{2},'OffsetZ':{3},", Name, Faktor, OffsetX, OffsetZ));
 
-            _ = AML.Add("'RK':{");
-            _ = AML.Add(string.Format(CultureInfo.InvariantCulture, "'A0':{{'x':{0},'y':{1},'z':{2}}},", A0X, A0Y, A0Z));
-            _ = AML.Add(string.Format(CultureInfo.InvariantCulture, "'C0':{{'x':{0},'y':{1},'z':{2}}},", C0X, C0Y, C0Z));
-            _ = AML.Add(string.Format(CultureInfo.InvariantCulture, "'D0':{{'x':{0},'y':{1},'z':{2}}},", D0X, D0Y, D0Z));
-            _ = AML.Add(string.Format(CultureInfo.InvariantCulture, "'E0':{{'x':{0},'y':{1},'z':{2}}},", E0X, E0Y, E0Z));
-            _ = AML.Add(string.Format(CultureInfo.InvariantCulture, "'F0':{{'x':{0},'y':{1},'z':{2}}}}},", F0X, F0Y, F0Z));
+            AML.Add("'RK':{");
+            AML.Add(string.Format(CultureInfo.InvariantCulture, "'A0':{{'x':{0},'y':{1},'z':{2}}},", A0X, A0Y, A0Z));
+            AML.Add(string.Format(CultureInfo.InvariantCulture, "'C0':{{'x':{0},'y':{1},'z':{2}}},", C0X, C0Y, C0Z));
+            AML.Add(string.Format(CultureInfo.InvariantCulture, "'D0':{{'x':{0},'y':{1},'z':{2}}},", D0X, D0Y, D0Z));
+            AML.Add(string.Format(CultureInfo.InvariantCulture, "'E0':{{'x':{0},'y':{1},'z':{2}}},", E0X, E0Y, E0Z));
+            AML.Add(string.Format(CultureInfo.InvariantCulture, "'F0':{{'x':{0},'y':{1},'z':{2}}}}},", F0X, F0Y, F0Z));
 
-            _ = AML.Add(string.Format(CultureInfo.InvariantCulture, "'RL':{{'MU':{0},'MO':{1},'ML':{2},'MV':{3},'CA':{4}}},", MU, MO, ML, MV, CA));
+            AML.Add(string.Format(CultureInfo.InvariantCulture, "'RL':{{'MU':{0},'MO':{1},'ML':{2},'MV':{3},'CA':{4}}},", MU, MO, ML, MV, CA));
 
-            _ = AML.Add("'SB':{");
-            _ = AML.Add(string.Format(CultureInfo.InvariantCulture, "'CP':{{'Min':{0},'Pos':{1},'Max':{2}}},", CPMin, CPPos, CPMax));
-            _ = AML.Add(string.Format(CultureInfo.InvariantCulture, "'VO':{{'Min':{0},'Pos':{1},'Max':{2}}},", VOMin, VOPos, VOMax));
-            _ = AML.Add(string.Format(CultureInfo.InvariantCulture, "'WI':{{'Min':{0},'Pos':{1},'Max':{2}}},", WIMin, WIPos, WIMax));
-            _ = AML.Add(string.Format(CultureInfo.InvariantCulture, "'WL':{{'Min':{0},'Pos':{1},'Max':{2}}},", WLMin, WLPos, WLMax));
-            _ = AML.Add(string.Format(CultureInfo.InvariantCulture, "'WO':{{'Min':{0},'Pos':{1},'Max':{2}}},", WOMin, WOPos, WOMax));
-            _ = AML.Add(string.Format(CultureInfo.InvariantCulture, "'SH':{{'Min':{0},'Pos':{1},'Max':{2}}},", SHMin, SHPos, SHMax));
-            _ = AML.Add(string.Format(CultureInfo.InvariantCulture, "'SA':{{'Min':{0},'Pos':{1},'Max':{2}}},", SAMin, SAPos, SAMax));
-            _ = AML.Add(string.Format(CultureInfo.InvariantCulture, "'SL':{{'Min':{0},'Pos':{1},'Max':{2}}}}}}}", SLMin, SLPos, SLMax));
+            AML.Add("'SB':{");
+            AML.Add(string.Format(CultureInfo.InvariantCulture, "'CP':{{'Min':{0},'Pos':{1},'Max':{2}}},", CPMin, CPPos, CPMax));
+            AML.Add(string.Format(CultureInfo.InvariantCulture, "'VO':{{'Min':{0},'Pos':{1},'Max':{2}}},", VOMin, VOPos, VOMax));
+            AML.Add(string.Format(CultureInfo.InvariantCulture, "'WI':{{'Min':{0},'Pos':{1},'Max':{2}}},", WIMin, WIPos, WIMax));
+            AML.Add(string.Format(CultureInfo.InvariantCulture, "'WL':{{'Min':{0},'Pos':{1},'Max':{2}}},", WLMin, WLPos, WLMax));
+            AML.Add(string.Format(CultureInfo.InvariantCulture, "'WO':{{'Min':{0},'Pos':{1},'Max':{2}}},", WOMin, WOPos, WOMax));
+            AML.Add(string.Format(CultureInfo.InvariantCulture, "'SH':{{'Min':{0},'Pos':{1},'Max':{2}}},", SHMin, SHPos, SHMax));
+            AML.Add(string.Format(CultureInfo.InvariantCulture, "'SA':{{'Min':{0},'Pos':{1},'Max':{2}}},", SAMin, SAPos, SAMax));
+            AML.Add(string.Format(CultureInfo.InvariantCulture, "'SL':{{'Min':{0},'Pos':{1},'Max':{2}}}}}}}", SLMin, SLPos, SLMax));
 
             for (int i = 0; i < AML.Count; i++)
             {
@@ -1156,25 +1156,25 @@ namespace RiggVar.Rgg
         }
         public void WriteReport(TStrings AML)
         {
-            _ = AML.Add(string.Format(CultureInfo.InvariantCulture, "A0 ({0}, {1}, {2})", A0X, A0Y, A0Z));
-            _ = AML.Add(string.Format(CultureInfo.InvariantCulture, "C0 ({0}, {1}, {2})", C0X, C0Y, C0Z));
-            _ = AML.Add(string.Format(CultureInfo.InvariantCulture, "D0 ({0}, {1}, {2})", D0X, D0Y, D0Z));
-            _ = AML.Add(string.Format(CultureInfo.InvariantCulture, "E0 ({0}, {1}, {2})", E0X, E0Y, E0Z));
-            _ = AML.Add(string.Format(CultureInfo.InvariantCulture, "F0 ({0}, {1}, {2})", F0X, F0Y, F0Z));
-            _ = AML.Add("");
-            _ = AML.Add(string.Format(CultureInfo.InvariantCulture, "ML, MV ({0}, {1})", ML, MV));
-            _ = AML.Add(string.Format(CultureInfo.InvariantCulture, "MU, MO ({0}, {1})", MU, MO));
-            _ = AML.Add(string.Format(CultureInfo.InvariantCulture, "CA ({0})", CA));
-            _ = AML.Add(string.Format(CultureInfo.InvariantCulture, "h0, h2, l2 ({0}, {1}, {2})", h0, h2, l2));
-            _ = AML.Add("");
-            _ = AML.Add(string.Format(CultureInfo.InvariantCulture, "CP ({0}, {1}, {2})", CPMin, CPPos, CPMax));
-            _ = AML.Add(string.Format(CultureInfo.InvariantCulture, "VO ({0}, {1}, {2})", VOMin, VOPos, VOMax));
-            _ = AML.Add(string.Format(CultureInfo.InvariantCulture, "WI ({0}, {1}, {2})", WIMin, WIPos, WIMax));
-            _ = AML.Add(string.Format(CultureInfo.InvariantCulture, "WL ({0}, {1}, {2})", WLMin, WLPos, WLMax));
-            _ = AML.Add(string.Format(CultureInfo.InvariantCulture, "WO ({0}, {1}, {2})", WOMin, WOPos, WOMax));
-            _ = AML.Add(string.Format(CultureInfo.InvariantCulture, "SH ({0}, {1}, {2})", SHMin, SHPos, SHMax));
-            _ = AML.Add(string.Format(CultureInfo.InvariantCulture, "SA ({0}, {1}, {2})", SAMin, SAPos, SAMax));
-            _ = AML.Add(string.Format(CultureInfo.InvariantCulture, "SL ({0}, {1}, {2})", SLMin, SLPos, SLMax));
+            AML.Add(string.Format(CultureInfo.InvariantCulture, "A0 ({0}, {1}, {2})", A0X, A0Y, A0Z));
+            AML.Add(string.Format(CultureInfo.InvariantCulture, "C0 ({0}, {1}, {2})", C0X, C0Y, C0Z));
+            AML.Add(string.Format(CultureInfo.InvariantCulture, "D0 ({0}, {1}, {2})", D0X, D0Y, D0Z));
+            AML.Add(string.Format(CultureInfo.InvariantCulture, "E0 ({0}, {1}, {2})", E0X, E0Y, E0Z));
+            AML.Add(string.Format(CultureInfo.InvariantCulture, "F0 ({0}, {1}, {2})", F0X, F0Y, F0Z));
+            AML.Add("");
+            AML.Add(string.Format(CultureInfo.InvariantCulture, "ML, MV ({0}, {1})", ML, MV));
+            AML.Add(string.Format(CultureInfo.InvariantCulture, "MU, MO ({0}, {1})", MU, MO));
+            AML.Add(string.Format(CultureInfo.InvariantCulture, "CA ({0})", CA));
+            AML.Add(string.Format(CultureInfo.InvariantCulture, "h0, h2, l2 ({0}, {1}, {2})", h0, h2, l2));
+            AML.Add("");
+            AML.Add(string.Format(CultureInfo.InvariantCulture, "CP ({0}, {1}, {2})", CPMin, CPPos, CPMax));
+            AML.Add(string.Format(CultureInfo.InvariantCulture, "VO ({0}, {1}, {2})", VOMin, VOPos, VOMax));
+            AML.Add(string.Format(CultureInfo.InvariantCulture, "WI ({0}, {1}, {2})", WIMin, WIPos, WIMax));
+            AML.Add(string.Format(CultureInfo.InvariantCulture, "WL ({0}, {1}, {2})", WLMin, WLPos, WLMax));
+            AML.Add(string.Format(CultureInfo.InvariantCulture, "WO ({0}, {1}, {2})", WOMin, WOPos, WOMax));
+            AML.Add(string.Format(CultureInfo.InvariantCulture, "SH ({0}, {1}, {2})", SHMin, SHPos, SHMax));
+            AML.Add(string.Format(CultureInfo.InvariantCulture, "SA ({0}, {1}, {2})", SAMin, SAPos, SAMax));
+            AML.Add(string.Format(CultureInfo.InvariantCulture, "SL ({0}, {1}, {2})", SLMin, SLPos, SLMax));
         }
     }
 }

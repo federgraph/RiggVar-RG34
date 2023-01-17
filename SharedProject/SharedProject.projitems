@@ -44,8 +44,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Model\rgg-model-05.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\rgg-model-06.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\rgg-model-07.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Util\TStringList.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Util\TStrings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FB\FB.Utils.cs" />
   </ItemGroup>
 </Project>
