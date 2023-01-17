@@ -146,9 +146,9 @@ namespace RiggVar.Rgg
         {
             if (AML.Count > 0)
             {
-                foreach (string s in AML)
+                for(int i = 0;i < AML.Count; i++) // foreach (string s in AML)
                 {
-                    if (s.Contains(":="))
+                    if (AML.GetString(i).Contains(":="))
                     {
                         return true;
                     }
@@ -809,7 +809,7 @@ namespace RiggVar.Rgg
         public void ReadTrimmFile(TRggTrimmDB DB, TStrings AML)
         {
             int j;
-            TRggData? fd = new TRggData();
+            TRggData? fd;
             TStringList SL = new TStringList();
 
             string s;

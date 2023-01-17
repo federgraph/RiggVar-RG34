@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 
-namespace RiggVar.Rgg
+namespace RiggVar.Compat
 {
 
     public class TStringListError : ApplicationException
@@ -22,7 +22,7 @@ namespace RiggVar.Rgg
         NameValueSeparator = 0x4
     }
 
-    public class TStringsEnumerator : Object, IEnumerator
+    public class TStringsEnumerator : object, IEnumerator
     {
         private int FIndex = -1;
         private TStrings FStrings;
@@ -32,7 +32,7 @@ namespace RiggVar.Rgg
             FStrings = AStrings;
         }
 
-        public Object Current
+        public object Current
         {
             get { return FStrings[FIndex]; }
         }
@@ -134,7 +134,7 @@ namespace RiggVar.Rgg
             if (i >= 0)
                 return Get(i).Substring(AName.Length + 1);
             else
-                return String.Empty;
+                return string.Empty;
         }
 
         private void ReadData(TextReader AReader)
@@ -143,7 +143,7 @@ namespace RiggVar.Rgg
             try
             {
                 Clear();
-                String? s;
+                string? s;
                 while ((s = AReader.ReadLine()) != null)
                     Add(s);
             }
@@ -249,10 +249,10 @@ namespace RiggVar.Rgg
         private void SetValue(string AName, string AValue)
         {
             int i = IndexOfName(AName);
-            if (AValue != String.Empty)
+            if (AValue != string.Empty)
             {
                 if (i < 0)
-                    i = Add(String.Empty);
+                    i = Add(string.Empty);
                 Put(i, AName + NameValueSeparator + AValue);
             }
             else
@@ -331,10 +331,10 @@ namespace RiggVar.Rgg
 
         private void SetValueFromIndex(int AIndex, string AValue)
         {
-            if (AValue != String.Empty)
+            if (AValue != string.Empty)
             {
                 if (AIndex < 0)
-                    AIndex = Add(String.Empty);
+                    AIndex = Add(string.Empty);
                 Put(AIndex, Names(AIndex) + NameValueSeparator + AValue);
             }
             else

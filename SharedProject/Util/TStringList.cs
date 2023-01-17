@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace RiggVar.Rgg
+namespace RiggVar.Compat
 {
     public class TDBStringListFactory
     {
@@ -152,7 +152,7 @@ namespace RiggVar.Rgg
             if (AIndex < 0 || AIndex >= FList.Count)
                 Error(SListIndexError, AIndex);
 
-            return (FList[AIndex] as TStringItem).FObject;
+            return FList[AIndex].FObject;
         }
 
         protected override void Put(int AIndex, string AValue)
@@ -164,7 +164,7 @@ namespace RiggVar.Rgg
                 Error(SListIndexError, AIndex);
 
             Changing();
-            (FList[AIndex] as TStringItem).FString = AValue;
+            FList[AIndex].FString = AValue;
             Changed();
         }
 
@@ -174,7 +174,7 @@ namespace RiggVar.Rgg
                 Error(SListIndexError, AIndex);
 
             Changing();
-            (FList[AIndex] as TStringItem).FObject = AObject;
+            FList[AIndex].FObject = AObject;
             Changed();
         }
 
@@ -193,7 +193,7 @@ namespace RiggVar.Rgg
 
         protected override int CompareStrings(string s1, string s2)
         {
-            return String.Compare(s1, s2, !FCaseSensitive);
+            return string.Compare(s1, s2, !FCaseSensitive);
         }
 
         protected virtual void InsertItem(int AIndex, string AValue, object? AObject)
@@ -287,7 +287,7 @@ namespace RiggVar.Rgg
             Changed();
         }
 
-        public virtual bool Find(String AValue, out int AIndex)
+        public virtual bool Find(string AValue, out int AIndex)
         {
             bool result = false;
             int lo = 0;
@@ -295,7 +295,7 @@ namespace RiggVar.Rgg
             while (lo <= hi)
             {
                 int i = (lo + hi) / 2;
-                int cmp = CompareStrings((FList[i] as TStringItem).FString, AValue);
+                int cmp = CompareStrings((FList[i]).FString, AValue);
                 if (cmp < 0)
                     lo = i + 1;
                 else
@@ -342,8 +342,8 @@ namespace RiggVar.Rgg
         private static int StringListCompareStrings(TStringList AList, int AIndex1,
             int AIndex2)
         {
-            return AList.CompareStrings((AList.FList[AIndex1] as TStringItem).FString,
-                (AList.FList[AIndex2] as TStringItem).FString);
+            return AList.CompareStrings((AList.FList[AIndex1]).FString,
+                (AList.FList[AIndex2]).FString);
         }
 
         public virtual void Sort()

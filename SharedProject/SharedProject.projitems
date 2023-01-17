@@ -27,6 +27,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Data\rgg-data-03.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\TRggData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\TRggTrimmDB.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FB\FB.StringList.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FB\RiggVar.FB.ActionConst.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FB\RiggVar.FB.ActionGroup.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FB\RiggVar.FB.ActionGroups.cs" />

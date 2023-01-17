@@ -3,7 +3,7 @@
     public partial class RggActions
     {
         // TActionGroup = array of Integer;
-        
+
         public static readonly int[] ActionGroupEmptyAction = new[]
         {
             faNoop
